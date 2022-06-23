@@ -1,0 +1,56 @@
+version: "1.0"
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: database-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_DATABASE=evidencias
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "5002:3306"
+    expose:
+      - "5002"
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/1.sql
+    networks:
+      - app-tier
+  backend:
+    container_name: backend-express
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    working_dir: /app
+    environment:
+      - EXT_HOST=db
+      - PRODUCTION=true
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - app-tier
+  frontend:
+    container_name: frontend-react
+    working_dir: /app
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+
+  # TODO dockerfile react app
+volumes:
+  db:
+    driver: local
