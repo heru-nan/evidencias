@@ -15,11 +15,11 @@
 
     <script>
         const api = "http://localhost:5000/api";
-        fetch(api+'/publicaciones').then(res => res.json()).then(({data} )=> {
+        fetch(api+'/form').then(res => res.json()).then(({data} )=> {
             const itemsUl = document.getElementById("items");
             let strHtml = ""
             data.forEach(publicacion => {
-                strHtml = strHtml + `<li id="item">${publicacion.nombre_publicacion}</li>`
+                strHtml = strHtml + `<li id="item"> Identificador: ${publicacion.id_publicacion} | Revista: ${publicacion.revista} | Nombre: ${publicacion.nombre_publicacion} </li>`
             });
 
             itemsUl.innerHTML = strHtml;
