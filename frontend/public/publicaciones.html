@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicaciones</title>
+</head>
+<body>
+    <h2>Publicaciones: </h2>
+    <div>
+        <ul id="items">
+        </ul>
+    </div>
+
+    <script>
+        const api = "http://localhost:5000/api";
+        fetch(api+'/publicaciones').then(res => res.json()).then(({data} )=> {
+            const itemsUl = document.getElementById("items");
+            let strHtml = ""
+            data.forEach(publicacion => {
+                strHtml = strHtml + `<li id="item">${publicacion.nombre_publicacion}</li>`
+            });
+
+            itemsUl.innerHTML = strHtml;
+            }
+        )
+    </script>
+</body>
+</html>

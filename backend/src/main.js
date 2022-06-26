@@ -32,5 +32,5 @@ app.get("/", async function (_req, res) {
 });
 
 app.listen(PORT, function () {
-  console.log(`listen on  ${PORT}`);
+  console.log(` > listen on PORT: ${PORT}`);
 });

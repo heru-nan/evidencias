@@ -1,37 +1,98 @@
--- CREATE DATABASE evidencias;
 use evidencias;
--- CREATE TABLE publicacion()
 
-
-/*tabla academicos*/
-DROP TABLE IF EXISTS `academico`;
+DROP TABLE IF EXISTS `dirige`;
+DROP TABLE IF EXISTS `proyecto`;
+DROP TABLE IF EXISTS `publicar`;
 DROP TABLE IF EXISTS `publicacion`;
 DROP TABLE IF EXISTS `disciplina`;
+DROP TABLE IF EXISTS `institucion`;
+DROP TABLE IF EXISTS `afiliar`;
+DROP TABLE IF EXISTS `financiamiento`;
+DROP TABLE IF EXISTS `academico`;
 
-CREATE TABLE academico (
-    id_academico varchar(255) not null,
-    rut varchar(255),
-    nombre varchar(255),
-    apellido1 varchar(255),
-    apellido2 varchar(255),
-    genero varchar(255),
-    nacionalidad varchar(255),
-    correo varchar(255),
-    PRIMARY KEY (`id_academico`)
+create table academico(
+	id_academico int(6) not null,
+    nacionalidad varchar(100),
+    nombre varchar(100) not null,
+    rut varchar(100),
+    genero varchar(100),
+    correo varchar(100),
+    primary key(`id_academico`)
 );
 
-create table publicacion (
-    id_publicacion varchar(255),
-    anio_publicacion int(5),
-    nombre_publicacion VARCHAR(100),
-    id_disciplina int(100),
-    clasificacion varchar(10),
-    citas int(10),
-    PRIMARY KEY (`id_publicacion`)
+create table financiamiento(
+	id_financiamiento int(6) not null,
+	descripcion varchar(300),
+    monto int(10) not null,
+    primary key(`id_financiamiento`)    
 );
 
-CREATE TABLE disciplina (
-    id varchar(100),
-    nombre_disciplina varchar(255),
-    PRIMARY KEY (`id`)
+create table proyecto(
+	id_proyecto int(6) not null,
+    palabras_clave varchar(300),
+    anio year,
+    numero int(6) not null,
+    nombre_proyecto varchar(100),
+    objetivo varchar(300),
+    presupuesto int(6),
+    primary key(`id_proyecto`),
+    foreign key(`presupuesto`) references financiamiento(`id_financiamiento`)
 );
+
+create table disciplina(
+	id_disciplina int(6) not null,
+    nombre_disciplina varchar(100),
+    primary key(`id_disciplina`)
+);
+
+
+create table dirige(
+    id_dirige INT NOT NULL AUTO_INCREMENT,
+	fecha_inicio date,
+    fecha_termino date,
+    proyecto int(6),
+    encargado int(6),
+    primary key(`id_dirige`),
+    foreign key(`proyecto`) references proyecto(`id_proyecto`),
+    foreign key(`encargado`) references academico(`id_academico`)
+);
+
+create table publicacion(
+	id_publicacion int(6) not null,
+    nombre_publicacion varchar(100),
+    anio year,
+    archivo varchar(100),
+    revista varchar(100),
+    citaciones varchar(300),
+    clasificacion varchar(100),
+    disciplina int(6),
+    primary key(`id_publicacion`),
+    foreign key(`disciplina`) references disciplina(`id_disciplina`)
+);
+
+create table publicar(
+    id_publicar INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	estado varchar(100),
+    tipo_participacion varchar(100),
+    academico int(6) not null,
+    publicacion int(6) not null,
+    foreign key(`academico`) references academico(`id_academico`),
+    foreign key(`publicacion`) references publicacion(`id_publicacion`)
+);
+
+create table institucion(
+	id_institucion int(6) not null,
+    nombre_institucion varchar(100),
+    pais varchar(100),
+    primary key(`id_institucion`)
+);
+
+create table afiliar(
+    id_afiliar INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	academico int(6) not null,
+    institucion int(6) not null,
+    foreign key(`academico`) references academico(`id_academico`),
+    foreign key(`institucion`) references institucion(`id_institucion`)
+);
+
+
