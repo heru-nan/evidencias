@@ -1,4 +1,7 @@
 /* eslint-disable no-undef, arrow-body-style */
+
+const { link, insert } = require("../services/files");
+
 getItems = async (req, res) => {};
 
 createItem = (req, res) => {
@@ -15,24 +18,20 @@ createItem = (req, res) => {
       error: "You must provide an item.",
     });
   }
-  console.log(file);
+
   const filename = file.originalname;
 
-  const myItem = {
-    name: req.body.name,
-    filename,
-    content: "...",
-  };
+  const item = insert(req.body.name, filename);
 
-  const item = {};
+  console.log(item);
 
-  if (!item) {
-    console.error(`400 in 'createItem': 'item' is malformed.`);
-    return res.status(400).json({
-      success: false,
-      message: "'item' is malformed",
-    });
-  }
+  // if (!item) {
+  //   console.error(`400 in 'createItem': 'item' is malformed.`);
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "'item' is malformed",
+  //   });
+  // }
 
   // console.log('----------------------- createItem: item -----------------------')
   // console.log(item);
@@ -40,7 +39,24 @@ createItem = (req, res) => {
   return true;
 };
 
+linkItemWithFile = (req, res) => {
+  const body = req.body;
+  if (!body) {
+    return res.status(400).json({
+      success: false,
+      error: "You must provide an item.",
+    });
+  }
+
+  const { id_archivo, id_fk, type } = req.body;
+
+  const item = link(id_archivo, id_fk, type);
+
+  console.log(item);
+};
+
 module.exports = {
   getItems,
   createItem,
+  linkItemWithFile,
 };

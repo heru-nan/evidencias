@@ -20,6 +20,7 @@ const upload = multer({ storage: storage });
 
 const router = express.Router();
 router.get("/items", ItemController.getItems);
+router.post("/items/link", ItemController.linkItemWithFile);
 // router.get("/item/:id", ItemController.getItemById);
 router.post("/item", upload.single("file"), ItemController.createItem);
 // router.put("/item/:id", ItemController.updateItem);
