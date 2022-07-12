@@ -13,7 +13,7 @@ import "./styles/App.css";
 import { NavBar, Welcome } from "./components";
 
 // Pages
-import { ItemInsert, Items, ItemUpdate, FormSend } from "./pages";
+import { ItemInsert, Items, ItemUpdate, RegisterPublication } from "./pages";
 
 class App extends Component {
   render() {
@@ -33,7 +33,7 @@ class App extends Component {
           component={Items}
         />
         <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />
-        <Route exact path={routes.FORM_SEND} component={FormSend} />
+        <Route exact path={routes.FORM_SEND} component={RegisterPublication} />
       </Switch>
     );
 

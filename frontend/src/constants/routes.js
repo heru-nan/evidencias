@@ -12,7 +12,7 @@ const ITEM_UPDATE = "/item/update/:id";
 
 // FORM routes
 
-const FORM_SEND = "/form/send";
+const REGISTER_PUBLICATION = "/form/register/publication";
 
 export const routes = {
   HOME,
@@ -23,5 +23,5 @@ export const routes = {
   ITEM,
   ITEM_INSERT,
   ITEM_UPDATE,
-  FORM_SEND,
+  REGISTER_PUBLICATION,
 };

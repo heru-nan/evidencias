@@ -4,7 +4,7 @@ import ItemsList from "./ItemsList";
 import ItemsPlain from "./ItemsPlain";
 import ItemsTable from "./ItemsTable";
 import ItemUpdate from "./ItemUpdate";
-import FormSend from "./FormSend";
+import RegisterPublication from "./RegisterPublication";
 
 export {
   ItemInsert,
@@ -13,5 +13,5 @@ export {
   ItemsPlain,
   ItemsTable,
   ItemUpdate,
-  FormSend,
+  RegisterPublication,
 };

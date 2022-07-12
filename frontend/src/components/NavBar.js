@@ -33,8 +33,8 @@ const navBarItems = [
     className: "nav-link",
   },
   {
-    name: "Enviar Formulario",
-    toPathname: "/form/send",
+    name: "Registrar Publicacion",
+    toPathname: "/form/register/publication",
     className: "nav-link",
   },
 ];
