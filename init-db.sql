@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS `institucion`;
 DROP TABLE IF EXISTS `afiliar`;
 DROP TABLE IF EXISTS `financiamiento`;
 DROP TABLE IF EXISTS `academico`;
+DROP TABLE IF EXISTS `archivo`;
 
 create table academico(
 	id_academico int(6) not null,
@@ -61,7 +62,6 @@ create table publicacion(
 	id_publicacion int(6) not null,
     nombre_publicacion varchar(100),
     anio year,
-    archivo varchar(100),
     revista varchar(100),
     citaciones varchar(300),
     clasificacion varchar(100),
@@ -95,4 +95,12 @@ create table afiliar(
     foreign key(`institucion`) references institucion(`id_institucion`)
 );
 
-
+create table archivo(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_fk_pub int(6),
+    id_fk_pro int(6),
+    nombre varchar(255),
+    ruta varchar(255),
+    foreign key(id_fk_pub) references publicacion(`id_publicacion`),
+    foreign key(id_fk_pro) references proyecto(`id_proyecto`)
+)
