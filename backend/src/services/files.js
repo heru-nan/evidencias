@@ -16,6 +16,18 @@ const insert = async (name, filename) => {
   }
 };
 
+const get = async () => {
+  try {
+    const resSelectArchivo = await db.query(`select * from archivo;`);
+
+    console.log(resSelectArchivo);
+    return resSelectArchivo;
+  } catch (error) {
+    console.log("service evidencias error: ", error);
+    return [];
+  }
+};
+
 const link = async (id_archivo, id_fk, type) => {
   try {
     let resInsertPub = null;
@@ -42,4 +54,5 @@ const link = async (id_archivo, id_fk, type) => {
 module.exports = {
   insert,
   link,
+  get,
 };

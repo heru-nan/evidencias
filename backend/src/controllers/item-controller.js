@@ -1,8 +1,11 @@
 /* eslint-disable no-undef, arrow-body-style */
 
-const { link, insert } = require("../services/files");
+const { link, insert, get } = require("../services/files");
 
-getItems = async (req, res) => {};
+getItems = async (req, res) => {
+  const items = await get();
+  return res.json({ items });
+};
 
 createItem = (req, res) => {
   const body = req.body;

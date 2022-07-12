@@ -33,8 +33,8 @@ router.post("/form", async (req, res) => {
   try {
     const resInsertPub = await db.query(
       `insert into publicacion
-      (id_publicacion, nombre_publicacion, revista)
-      values ('${identificador}', '${titulo}', '${revista}');`
+      (id_publicacion, nombre_publicacion, revista, indexacion)
+      values ('${identificador}', '${titulo}', '${revista}', '${indexacion}');`
     );
     error = false;
 
