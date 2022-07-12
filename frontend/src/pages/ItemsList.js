@@ -1,13 +1,20 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { useTable } from 'react-table';
-import { DeleteButton } from '../components/buttons';
-import api from '../api';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { useTable } from "react-table";
+import { DeleteButton } from "../components/buttons";
+import api from "../api";
 
-import MaUTable from '@material-ui/core/Table';
-import { CssBaseline, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import MaUTable from "@material-ui/core/Table";
+import {
+  CssBaseline,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@material-ui/core";
 
-import styled from 'styled-components';
+import styled from "styled-components";
+import { Button } from "reactstrap";
 
 const Wrapper = styled.div`
   padding: 0 40px 40px 40px;
@@ -27,10 +34,12 @@ const Table = ({ columns, data }) => {
   return (
     <MaUTable {...getTableProps()}>
       <TableHead>
-        {headerGroups.map(headerGroup => (
+        {headerGroups.map((headerGroup) => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <TableCell {...column.getHeaderProps()}>{column.render('Header')}</TableCell>
+            {headerGroup.headers.map((column) => (
+              <TableCell {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </TableCell>
             ))}
           </TableRow>
         ))}
@@ -40,8 +49,12 @@ const Table = ({ columns, data }) => {
           prepareRow(row);
           return (
             <TableRow data-row-item-id={row.values._id} {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
+              {row.cells.map((cell) => {
+                return (
+                  <TableCell {...cell.getCellProps()}>
+                    {cell.render("Cell")}
+                  </TableCell>
+                );
               })}
             </TableRow>
           );
@@ -60,7 +73,7 @@ class ItemsTable extends Component {
   }
 
   componentDidMount() {
-    console.log('ItemsList: props');
+    console.log("ItemsList: props");
     console.log(this.props);
 
     this.fetchAllItems();
@@ -69,39 +82,43 @@ class ItemsTable extends Component {
   fetchAllItems = () => {
     api
       .getAllItems()
-      .then(resp => {
+      .then((resp) => {
         const { items } = resp.data;
-        console.log('getAllItems: resp');
+        console.log("getAllItems: resp");
         console.log(items);
         this.setState({ items });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`ERROR in 'getAllItems': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  deleteSingleItem = itemId => {
+  deleteSingleItem = (itemId) => {
     return api
       .deleteItemById(itemId)
-      .then(resp => {
-        console.log('deleteItemById: resp');
+      .then((resp) => {
+        console.log("deleteItemById: resp");
         console.log(resp);
         return resp;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`ERROR in 'deleteSingleItem': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  handleRemoveItem = data => {
+  handleEdit = () => {
+    console.log("handle edit");
+  };
+
+  handleRemoveItem = (data) => {
     const itemId = data;
 
-    this.deleteSingleItem(itemId).then(resp => {
-      console.log('handleRemoveItem: resp');
+    this.deleteSingleItem(itemId).then((resp) => {
+      console.log("handleRemoveItem: resp");
       console.log(resp);
       this.fetchAllItems();
     });
@@ -113,50 +130,52 @@ class ItemsTable extends Component {
 
     const columns = [
       {
-        Header: 'ID',
-        accessor: '_id',
+        Header: "ID",
+        accessor: "id",
         // filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           console.log(props);
           const { original } = props.cell.row;
           return <span data-item-id={original._id}>{props.value}</span>;
         },
       },
       {
-        Header: 'Nombre',
-        accessor: 'name',
+        Header: "Nombre",
+        accessor: "nombre",
         // filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           const { original } = props.cell.row;
           return <span data-name={original.name}>{props.value}</span>;
         },
       },
       {
-        Header: 'Filename',
-        accessor: 'filename',
+        Header: "Filename",
+        accessor: "ruta",
         // filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           const { original } = props.cell.row;
           return <span data-name={original.filename}>{props.value}</span>;
         },
       },
       {
-        Header: 'Content',
-        accessor: 'content',
+        Header: "ID Publicacion",
+        accessor: "id_fk_pub",
         // filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           const { original } = props.cell.row;
           return <span data-name={original.content}>{props.value}</span>;
         },
       },
       {
-        Header: 'Timeframe',
-        accessor: 'timeframeNote',
-        Cell: props => {
+        Header: "ID Proyecto",
+        accessor: "id_fk_pro",
+        // filterable: true,
+        Cell: (props) => {
           const { original } = props.cell.row;
-          return <span data-timeframe={original.timeframeNote}>{props.value || '-'}</span>;
+          return <span data-name={original.content}>{props.value}</span>;
         },
       },
+
       // {
       //   Header: 'Update',
       //   accessor: '_update',
@@ -171,13 +190,15 @@ class ItemsTable extends Component {
       //   },
       // },
       {
-        Header: 'Delete',
-        accessor: '_delete',
-        Cell: props => {
+        Header: "Acciones",
+        accessor: "_delete",
+        Cell: (props) => {
           const { original } = props.cell.row;
           return (
             <span data-delete-id={original._id}>
-              <DeleteButton id={original._id} onDelete={this.handleRemoveItem} />
+              <Button id={original._id} onDelete={this.handleEdit}>
+                Editar
+              </Button>
             </span>
           );
         },

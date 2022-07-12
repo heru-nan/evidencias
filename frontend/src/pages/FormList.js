@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 
 import styled from "styled-components";
+import { Button } from "reactstrap";
 
 const Wrapper = styled.div`
   padding: 0 40px 40px 40px;
@@ -78,6 +79,10 @@ class ItemsTable extends Component {
     this.fetchAllItems();
   }
 
+  handleEdit = () => {
+    console.log("handle edit");
+  };
+
   fetchAllItems = () => {
     api
       .getAllFormItems()
@@ -120,6 +125,24 @@ class ItemsTable extends Component {
         },
       },
       {
+        Header: "Revista",
+        accessor: "revista",
+        // filterable: true,
+        Cell: (props) => {
+          const { original } = props.cell.row;
+          return <span data-name={original.name}>{props.value}</span>;
+        },
+      },
+      {
+        Header: "Indexacion",
+        accessor: "indexacion",
+        // filterable: true,
+        Cell: (props) => {
+          const { original } = props.cell.row;
+          return <span data-name={original.name}>{props.value}</span>;
+        },
+      },
+      {
         Header: "Anio",
         accessor: "anio",
         // filterable: true,
@@ -147,12 +170,26 @@ class ItemsTable extends Component {
         },
       },
       {
-        Header: "disciplina",
+        Header: "Disciplina",
         accessor: "disciplina",
         // filterable: true,
         Cell: (props) => {
           const { original } = props.cell.row;
           return <span data-name={original.content}>{props.value}</span>;
+        },
+      },
+      {
+        Header: "Acciones",
+        accessor: "_edit",
+        Cell: (props) => {
+          const { original } = props.cell.row;
+          return (
+            <span data-delete-id={original._id}>
+              <Button id={original._id} onClick={this.handleEdit}>
+                Editar
+              </Button>
+            </span>
+          );
         },
       },
       // {
