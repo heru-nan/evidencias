@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
-import { routes } from '../constants';
+import { routes } from "../constants";
 
-import { Button } from '@material-ui/core';
-import styled from 'styled-components';
+import { Button } from "@material-ui/core";
+import styled from "styled-components";
 
-import { ItemsList, ItemsPlain, ItemsTable } from '../pages';
+import { ItemsList, ItemsPlain, ItemsTable, FormList } from "../pages";
 
 const LinksGridContainer = styled.div`
   display: grid;
@@ -20,29 +20,24 @@ const LinksGridContainer = styled.div`
 
 const LinkGridWrapper = styled.div``;
 
-const isCurrentPage = linkPathname => {
+const isCurrentPage = (linkPathname) => {
   return window.location.pathname === linkPathname;
 };
 
-const linkTextColor = linkPathname => {
-  return isCurrentPage(linkPathname) ? '#FFFFFF' : 'rgba(255,255,255,.75)';
+const linkTextColor = (linkPathname) => {
+  return isCurrentPage(linkPathname) ? "#FFFFFF" : "rgba(255,255,255,.75)";
 };
 
 const itemsPageVariants = [
   {
-    name: 'Evidencias',
+    name: "Archivos",
     toPathname: routes.ITEMS,
     pageComonent: ItemsList,
   },
   {
-    name: 'Evidencias (using react-table-v6)',
-    toPathname: `${routes.ITEMS}/react-table-v6`,
-    pageComponent: ItemsTable,
-  },
-  {
-    name: 'Evidencias (with only styled-components)',
-    toPathname: `${routes.ITEMS}/items-plain`,
-    pageComponent: ItemsPlain,
+    name: "Publicaciones",
+    toPathname: `${routes.ITEMS}/form`,
+    pageComonent: FormList,
   },
 ];
 
@@ -52,8 +47,13 @@ class Items extends Component {
     const itemsPages = (
       <Switch>
         <Route exact path={routes.ITEMS} component={ItemsList} />
-        <Route exact path={`${routes.ITEMS}/react-table-v6`} component={ItemsTable} />
-        <Route exact path={`${routes.ITEMS}/items-plain`} component={ItemsPlain} />
+        <Route exact path={`${routes.ITEMS}/form`} component={FormList} />
+
+        <Route
+          exact
+          path={`${routes.ITEMS}/items-plain`}
+          component={ItemsPlain}
+        />
       </Switch>
     );
 
@@ -63,11 +63,13 @@ class Items extends Component {
           {itemsPageVariants.map((itemsPageVariant, i) => (
             <LinkGridWrapper
               key={itemsPageVariant.name}
-              style={{ gridColumn: `${(i + 2) * 2 - 1} / span 2` }}>
+              style={{ gridColumn: `${(i + 2) * 2 - 1} / span 2` }}
+            >
               <Button className="bg-dark" variant="contained">
                 <Link
                   style={{ color: linkTextColor(itemsPageVariant.toPathname) }}
-                  to={itemsPageVariant.toPathname}>
+                  to={itemsPageVariant.toPathname}
+                >
                   {itemsPageVariant.name}
                 </Link>
               </Button>

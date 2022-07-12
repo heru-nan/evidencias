@@ -22,6 +22,7 @@ router.get("/form", async (_, res) => {
 
 router.post("/form", async (req, res) => {
   const { body } = req;
+  let error = true;
   if (!body)
     res.statusCode(400).json({ data: [], error: "No existen argumentos" });
 
@@ -35,23 +36,17 @@ router.post("/form", async (req, res) => {
       (id_publicacion, nombre_publicacion, revista)
       values ('${identificador}', '${titulo}', '${revista}');`
     );
+    error = false;
 
     console.log(resInsertPub.affectedRows);
   } catch (error) {
-    res.json({
-      data: [],
-      error,
-    });
+    console.log(error);
   }
 
   res.json({
     data: [],
-    error: null,
+    error,
   });
 });
-
-router.put("/:id", async (req, res) => {});
-
-router.delete("/:id", async (req, res) => {});
 
 module.exports = router;

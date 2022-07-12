@@ -10,17 +10,6 @@ import {
   FormFeedback,
 } from "reactstrap";
 
-import { shared } from "../constants";
-import api from "../api";
-import axios from "axios";
-
-import styled from "styled-components";
-
-const Container = styled.div`
-  display: flex;
-  padding: 1em;
-`;
-
 class FPublic extends Component {
   constructor(props) {
     super(props);
@@ -123,9 +112,11 @@ class FPublic extends Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(this.state),
       };
-      fetch(api + "/form", requestOptions)
+      // eslint-disable-next-line no-useless-concat
+      fetch("http://localhost:5000/api" + "/form", requestOptions)
         .then((response) => response.json())
         .then((data) => {
+          if (data.error) console.log("error ", data.error);
           if (!data.error) {
             this.cleanFields();
           }

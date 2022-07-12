@@ -27,6 +27,7 @@ class App extends Component {
         <Route exact path={routes.HOME} component={Welcome} />
         <Route exact path={routes.ITEMS} component={Items} />
         <Route exact path={`${routes.ITEMS}/items-plain`} component={Items} />
+        <Route exact path={`${routes.ITEMS}/form`} component={Items} />
         <Route
           exact
           path={`${routes.ITEMS}/react-table-v6`}

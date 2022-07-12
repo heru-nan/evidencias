@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
-const routes = require("./routes");
+const formRoutes = require("./routes/form-router");
+const itemRoutes = require("./routes/item-router");
 
 // Config
 const PORT = 5000;
@@ -22,7 +23,8 @@ app.use(function (req, res, next) {
 });
 
 // end-points
-app.use("/api", routes);
+app.use("/api", formRoutes);
+app.use("/api", itemRoutes);
 
 app.get("/", async function (_req, res) {
   res.json({
