@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `academico`;
 DROP TABLE IF EXISTS `archivo`;
 
 create table academico(
-	id_academico int(6) not null,
+	id_academico int(6) AUTO_INCREMENT not null,
     nacionalidad varchar(100),
     nombre varchar(100) not null,
     rut varchar(100),
@@ -22,14 +22,14 @@ create table academico(
 );
 
 create table financiamiento(
-	id_financiamiento int(6) not null,
+	id_financiamiento int(6) AUTO_INCREMENT not null,
 	descripcion varchar(300),
     monto int(10) not null,
     primary key(`id_financiamiento`)    
 );
 
 create table proyecto(
-	id_proyecto int(6) not null,
+	id_proyecto int(6) AUTO_INCREMENT not null,
     palabras_clave varchar(300),
     anio year,
     numero int(6) not null,
@@ -41,7 +41,7 @@ create table proyecto(
 );
 
 create table disciplina(
-	id_disciplina int(6) not null,
+	id_disciplina AUTO_INCREMENT int(6) not null,
     nombre_disciplina varchar(100),
     primary key(`id_disciplina`)
 );
@@ -63,6 +63,7 @@ create table publicacion(
     nombre_publicacion varchar(100),
     anio year,
     revista varchar(100),
+    indexacion varchar(100), 
     citaciones varchar(300),
     clasificacion varchar(100),
     disciplina int(6),
