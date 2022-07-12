@@ -1,16 +1,16 @@
-import React, { Component, useState } from 'react';
-import { shared } from '../constants';
-import api from '../api';
-import axios from 'axios';
+import React, { Component, useState } from "react";
+import { shared } from "../constants";
+import api from "../api";
+import axios from "axios";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Title = styled.h1.attrs({
-  className: 'h1',
+  className: "h1",
 })``;
 
 const Wrapper = styled.div.attrs({
-  className: 'form-group',
+  className: "form-group",
 })`
   margin-top: 0 30px;
 `;
@@ -26,7 +26,7 @@ const Label = styled.label`
 `;
 
 const InputText = styled.input.attrs({
-  className: 'form-control',
+  className: "form-control",
 })`
   margin: 5px auto;
   max-width: 30%;
@@ -39,7 +39,7 @@ const InputText = styled.input.attrs({
 `;
 
 const Fieldset = styled.fieldset.attrs({
-  className: 'form-control',
+  className: "form-control",
 })`
   background-color: transparent;
   border-color: transparent;
@@ -54,77 +54,77 @@ const Fieldset = styled.fieldset.attrs({
 `;
 
 const DayInput = styled.input.attrs({
-  className: '',
+  className: "",
 })`
   margin: 5px 5px 5px auto;
   text-align: center;
 `;
 
 const Button = styled.button.attrs({
-  className: 'btn btn-primary',
+  className: "btn btn-primary",
 })`
   margin: 15px 15px 15px 5px;
 `;
 
 const CancelButton = styled.a.attrs({
-  className: 'btn btn-danger',
+  className: "btn btn-danger",
 })`
   margin: 15px 15px 15px 5px;
 `;
 
 const ItemInsert = () => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [file, setFile] = useState(null);
-  const handleChangeInputName = async event => {
+  const handleChangeInputName = async (event) => {
     const name = event.target.value;
     setName(name);
   };
 
-  const insertSingleItem = item => {
+  const insertSingleItem = (item) => {
     return api
       .insertItem(item)
-      .then(resp => {
-        console.log('insertItem: resp');
+      .then((resp) => {
+        console.log("insertItem: resp");
         console.log(resp);
         if ((resp.data || {}).success) {
           const newItem = JSON.parse(resp.config.data);
-          console.log('insertItem: newItem', newItem);
+          console.log("insertItem: newItem", newItem);
         }
         return resp;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`ERROR in 'insertSingleItem': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  const handleInsertItem = event => {
+  const handleInsertItem = (event) => {
     event.preventDefault();
     let formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', name);
+    formData.append("file", file);
+    formData.append("name", name);
 
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
 
     axios
-      .post('http://localhost:3000/api/item', formData, {
+      .post("http://localhost:5000/api/item", formData, {
         headers: {
-          'Content-type': 'multipart/form-data',
+          "Content-type": "multipart/form-data",
         },
       })
-      .then(res => {
+      .then((res) => {
         console.log(`Success` + res.data);
-        window.location.href = '/items';
+        window.location.href = "/items";
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleChangeFile = event => {
+  const handleChangeFile = (event) => {
     if (!event.target.files[0]) return;
     setFile(event.target.files[0]);
   };
@@ -146,7 +146,7 @@ const ItemInsert = () => {
         />
       </Fieldset>
       <Button onClick={handleInsertItem}>Subir</Button>
-      <CancelButton href={'/items'}>Cancelar</CancelButton>
+      <CancelButton href={"/items"}>Cancelar</CancelButton>
     </Wrapper>
   );
 };

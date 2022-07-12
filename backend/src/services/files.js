@@ -4,7 +4,7 @@ const insert = (name, filename) => {
     
     try {
         const resInsertPub = await db.query(
-            `insert id
+            `insert archivo
             (name, filename)
             values ('${name}', '${filename}');`
           );
