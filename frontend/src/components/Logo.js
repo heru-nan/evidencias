@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
-import logo from '../styles/assets/logo.svg';
+import logo from "../styles/assets/inniving_logo.svg";
 
 const Wrapper = styled.a.attrs({
-  className: 'navbar-brand',
-  href: '/',
+  className: "navbar-brand",
+  href: "/",
 })``;
 
 class Logo extends Component {
@@ -15,7 +15,12 @@ class Logo extends Component {
 
     return (
       <Wrapper>
-        <img src={logo} className="app--logo" style={logoStyles} alt="React Logo" />
+        <img
+          src={logo}
+          className="app--logo"
+          style={logoStyles}
+          alt="React Logo"
+        />
       </Wrapper>
     );
   }
