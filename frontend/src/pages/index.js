@@ -6,6 +6,7 @@ import ItemsPlain from "./ItemsPlain";
 import ItemsTable from "./ItemsTable";
 import ItemUpdate from "./ItemUpdate";
 import RegisterPublication from "./RegisterPublication";
+import RegisterProyect from "./RegisterProyect";
 
 export {
   ItemInsert,
@@ -16,4 +17,5 @@ export {
   ItemsTable,
   ItemUpdate,
   RegisterPublication,
+  RegisterProyect,
 };

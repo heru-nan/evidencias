@@ -21,25 +21,15 @@ createItem = (req, res) => {
       error: "You must provide an item.",
     });
   }
-
-  const filename = file.originalname;
+  const filename = file.filename;
 
   const item = insert(req.body.name, filename);
 
-  console.log(item);
+  if (!item) {
+    return res.status(500).json({ success: false });
+  }
 
-  // if (!item) {
-  //   console.error(`400 in 'createItem': 'item' is malformed.`);
-  //   return res.status(400).json({
-  //     success: false,
-  //     message: "'item' is malformed",
-  //   });
-  // }
-
-  // console.log('----------------------- createItem: item -----------------------')
-  // console.log(item);
-
-  return true;
+  return res.json({ success: true });
 };
 
 linkItemWithFile = (req, res) => {

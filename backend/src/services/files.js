@@ -12,7 +12,7 @@ const insert = async (name, filename) => {
     return resInsertPub;
   } catch (error) {
     console.log("service evidencias error: ", error);
-    return error;
+    return null;
   }
 };
 

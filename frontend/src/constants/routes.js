@@ -13,6 +13,7 @@ const ITEM_UPDATE = "/item/update/:id";
 // FORM routes
 
 const REGISTER_PUBLICATION = "/form/register/publication";
+const REGISTER_PROJECT = "/form/register/project";
 
 export const routes = {
   HOME,
@@ -24,4 +25,5 @@ export const routes = {
   ITEM_INSERT,
   ITEM_UPDATE,
   REGISTER_PUBLICATION,
+  REGISTER_PROJECT,
 };

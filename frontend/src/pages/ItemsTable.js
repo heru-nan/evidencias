@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ReactTable from 'react-table-6';
-import { DeleteButton } from '../components/buttons';
-import api from '../api';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import ReactTable from "react-table-6";
+import { DeleteButton } from "../components/buttons";
+import api from "../api";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import 'react-table-6/react-table.css';
+import "react-table-6/react-table.css";
 
 const Wrapper = styled.div`
   padding: 0 40px 40px 40px;
@@ -21,7 +21,7 @@ class ItemsList extends Component {
   }
 
   componentDidMount() {
-    console.log('ItemsList: props');
+    console.log("ItemsList: props");
     console.log(this.props);
     // if (((this.props.itemData || {}).items || []).length) return;
 
@@ -31,40 +31,53 @@ class ItemsList extends Component {
   fetchAllItems = () => {
     api
       .getAllItems()
-      .then(resp => {
+      .then((resp) => {
         debugger;
         const { items } = resp.data;
-        console.log('getAllItems: resp');
+        console.log("getAllItems: resp");
         console.log(items);
         this.setState({ items });
       })
-      .catch(err => {
+      .catch((err) => {
+        console.error(`ERROR in 'getAllItems': ${err}`);
+        console.error(err);
+        return err;
+      });
+    api
+      .getAllFormItems()
+      .then((resp) => {
+        const { data } = resp.data;
+        console.log("getAllFormItems: resp");
+        console.log("data", data);
+        this.setState({ pubs: data });
+      })
+      .catch((err) => {
         console.error(`ERROR in 'getAllItems': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  deleteSingleItem = itemId => {
+  deleteSingleItem = (itemId) => {
     return api
       .deleteItemById(itemId)
-      .then(resp => {
-        console.log('deleteItemById: resp');
+      .then((resp) => {
+        console.log("deleteItemById: resp");
         console.log(resp);
         return resp;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`ERROR in 'deleteSingleItem': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  handleRemoveItem = data => {
+  handleRemoveItem = (data) => {
     const itemId = data;
 
-    this.deleteSingleItem(itemId).then(resp => {
-      console.log('handleRemoveItem: resp');
+    this.deleteSingleItem(itemId).then((resp) => {
+      console.log("handleRemoveItem: resp");
       console.log(resp);
       this.fetchAllItems();
     });
@@ -76,43 +89,49 @@ class ItemsList extends Component {
 
     const columns = [
       {
-        Header: 'ID',
-        accessor: '_id',
+        Header: "ID",
+        accessor: "_id",
         filterable: true,
-        Cell: props => {
-          return <span data-item-id={props.original._id}>{props.original._id}</span>;
+        Cell: (props) => {
+          return (
+            <span data-item-id={props.original._id}>{props.original._id}</span>
+          );
         },
       },
       {
-        Header: 'Name',
-        accessor: 'name',
+        Header: "Name",
+        accessor: "name",
         filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           return <span data-name={props.original.name}>{props.value}</span>;
         },
       },
       {
-        Header: 'Filename',
-        accessor: 'filename',
+        Header: "Filename",
+        accessor: "filename",
         filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           return <span data-name={props.original.filename}>{props.value}</span>;
         },
       },
       {
-        Header: 'Content',
-        accessor: 'content',
+        Header: "Content",
+        accessor: "content",
         filterable: true,
-        Cell: props => {
+        Cell: (props) => {
           return <span data-name={props.original.content}>{props.value}</span>;
         },
       },
 
       {
-        Header: 'Timeframe',
-        accessor: 'timeframeNote',
-        Cell: props => {
-          return <span data-timeframe={props.original.timeframeNote}>{props.value || '-'}</span>;
+        Header: "Timeframe",
+        accessor: "timeframeNote",
+        Cell: (props) => {
+          return (
+            <span data-timeframe={props.original.timeframeNote}>
+              {props.value || "-"}
+            </span>
+          );
         },
       },
       // {
@@ -127,12 +146,15 @@ class ItemsList extends Component {
       //   },
       // },
       {
-        Header: '',
-        accessor: '',
-        Cell: props => {
+        Header: "",
+        accessor: "",
+        Cell: (props) => {
           return (
             <span data-delete-id={props.original._id}>
-              <DeleteButton id={props.original._id} onDelete={this.handleRemoveItem} />
+              <DeleteButton
+                id={props.original._id}
+                onDelete={this.handleRemoveItem}
+              />
             </span>
           );
         },

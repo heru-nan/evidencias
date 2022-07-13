@@ -16,6 +16,19 @@ import {
 import styled from "styled-components";
 import { Button } from "reactstrap";
 
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const Wrapper = styled.div`
   padding: 0 40px 40px 40px;
 
@@ -69,13 +82,25 @@ class ItemsTable extends Component {
     super(props);
     this.state = {
       items: {},
+      open: false,
+      currentItem: null,
+      pubs: {},
+      pros: {},
+      type: null,
     };
   }
 
-  componentDidMount() {
-    console.log("ItemsList: props");
-    console.log(this.props);
+  handleOpen = (item) => {
+    console.log("open", item);
+    this.setState({ open: true, currentItem: item });
+  };
+  handleClose = () => {
+    this.setState({ open: false, type: null });
+  };
 
+  handleAsociar = (currentItem) => {};
+
+  componentDidMount() {
     this.fetchAllItems();
   }
 
@@ -87,6 +112,19 @@ class ItemsTable extends Component {
         console.log("getAllItems: resp");
         console.log(items);
         this.setState({ items });
+      })
+      .catch((err) => {
+        console.error(`ERROR in 'getAllItems': ${err}`);
+        console.error(err);
+        return err;
+      });
+    api
+      .getAllFormItems()
+      .then((resp) => {
+        const { data } = resp.data;
+        console.log("getAllFormItems: resp");
+        console.log("data", data);
+        this.setState({ pubs: data });
       })
       .catch((err) => {
         console.error(`ERROR in 'getAllItems': ${err}`);
@@ -110,10 +148,6 @@ class ItemsTable extends Component {
       });
   };
 
-  handleEdit = () => {
-    console.log("handle edit");
-  };
-
   handleRemoveItem = (data) => {
     const itemId = data;
 
@@ -122,6 +156,10 @@ class ItemsTable extends Component {
       console.log(resp);
       this.fetchAllItems();
     });
+  };
+
+  handleShowItems = (type) => {
+    this.setState({ type });
   };
 
   render() {
@@ -175,20 +213,6 @@ class ItemsTable extends Component {
           return <span data-name={original.content}>{props.value}</span>;
         },
       },
-
-      // {
-      //   Header: 'Update',
-      //   accessor: '_update',
-      //   Cell: props => {
-      //     const { original } = props.cell.row;
-
-      //     return (
-      //       <Link data-update-id={original._id} to={`/item/update/${original._id}`}>
-      //         Update
-      //       </Link>
-      //     );
-      //   },
-      // },
       {
         Header: "Acciones",
         accessor: "_delete",
@@ -196,8 +220,11 @@ class ItemsTable extends Component {
           const { original } = props.cell.row;
           return (
             <span data-delete-id={original._id}>
-              <Button id={original._id} onDelete={this.handleEdit}>
-                Editar
+              <Button
+                id={original._id}
+                onClick={() => this.handleOpen(original)}
+              >
+                Asociar
               </Button>
             </span>
           );
@@ -208,6 +235,107 @@ class ItemsTable extends Component {
     return (
       <Wrapper>
         <CssBaseline />
+        <Modal
+          isOpen={this.state.open}
+          onRequestClose={this.handleClose}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h2>Asociar</h2>
+          {!this.state.type ? (
+            <div
+              style={{
+                padding: "2rem",
+                width: "500px",
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <Button
+                color="secondary"
+                onClick={() => this.handleShowItems("pub")}
+              >
+                Publicaciones
+              </Button>
+              <Button color="info" onClick={() => this.handleShowItems("pro")}>
+                Proyectos
+              </Button>
+            </div>
+          ) : (
+            <div
+              style={{
+                padding: "2rem",
+                width: "500px",
+                display: "column",
+                justifyContent: "center",
+                alignItems: "space-eveenly",
+              }}
+            >
+              <Table
+                data={this.state.pubs}
+                columns={[
+                  {
+                    Header: "ID",
+                    accessor: "id_publicacion",
+                    // filterable: true,
+                    Cell: (props) => {
+                      console.log(props);
+                      const { original } = props.cell.row;
+                      return (
+                        <span data-item-id={original._id}>{props.value}</span>
+                      );
+                    },
+                  },
+                  {
+                    Header: "Nombre",
+                    accessor: "nombre_publicacion",
+                    // filterable: true,
+                    Cell: (props) => {
+                      const { original } = props.cell.row;
+                      return (
+                        <span data-name={original.name}>{props.value}</span>
+                      );
+                    },
+                  },
+                  {
+                    Header: "Revista",
+                    accessor: "revista",
+                    // filterable: true,
+                    Cell: (props) => {
+                      const { original } = props.cell.row;
+                      return (
+                        <span data-name={original.filename}>{props.value}</span>
+                      );
+                    },
+                  },
+                  {
+                    Header: "Acciones",
+                    accessor: "_delete",
+                    Cell: (props) => {
+                      const { original } = props.cell.row;
+                      return (
+                        <span data-delete-id={original._id}>
+                          <Button
+                            color="primary"
+                            id={original._id}
+                            onClick={() => this.handleAsociar(original)}
+                          >
+                            Asociar
+                          </Button>
+                        </span>
+                      );
+                    },
+                  },
+                ]}
+              />
+            </div>
+          )}
+
+          <Button style={{ right: "0px" }} onClick={this.handleClose}>
+            close
+          </Button>
+        </Modal>
         {(items || []).length > 0 ? (
           <Table data={items} columns={columns} />
         ) : (

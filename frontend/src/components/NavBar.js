@@ -37,6 +37,11 @@ const navBarItems = [
     toPathname: "/form/register/publication",
     className: "nav-link",
   },
+  {
+    name: "Registrar Proyecto",
+    toPathname: "/form/register/project",
+    className: "nav-link",
+  },
 ];
 
 class NavBar extends Component {

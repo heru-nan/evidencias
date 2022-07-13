@@ -173,6 +173,7 @@ class FPublic extends Component {
                   onChange={this.onChange}
                   invalid={this.state.invalidIndexacion}
                 />
+                {/* TODO: SELECT // WOS - SCOPUS - AMBAS */}
                 <FormFeedback>{this.state.mensajeIndexacion}</FormFeedback>
               </FormGroup>
               <FormGroup>
