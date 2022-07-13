@@ -242,7 +242,7 @@ class ItemsTable extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2>Editar Proyecto</h2>
+          <h2>Editar Publicacion</h2>
           <div
             style={{
               padding: "2rem",
