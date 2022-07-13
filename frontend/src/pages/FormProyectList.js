@@ -15,6 +15,20 @@ import {
 import styled from "styled-components";
 import { Button } from "reactstrap";
 
+import Modal from "react-modal";
+import EditPro from "../components/EditPro";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const Wrapper = styled.div`
   padding: 0 40px 40px 40px;
 
@@ -68,6 +82,8 @@ class ItemsTable extends Component {
     super(props);
     this.state = {
       items: {},
+      open: false,
+      currentItem: null,
     };
   }
 
@@ -96,6 +112,15 @@ class ItemsTable extends Component {
         console.error(err);
         return err;
       });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+    this.fetchAllItems();
+  };
+
+  setOpen = (currentItem) => {
+    this.setState({ open: true, currentItem: currentItem });
   };
 
   render() {
@@ -214,7 +239,7 @@ class ItemsTable extends Component {
           const { original } = props.cell.row;
           return (
             <span data-delete-id={original._id}>
-              <Button id={original._id} onClick={this.handleEdit}>
+              <Button id={original._id} onClick={() => this.setOpen(original)}>
                 Editar
               </Button>
             </span>
@@ -239,6 +264,28 @@ class ItemsTable extends Component {
     return (
       <Wrapper>
         <CssBaseline />
+        <Modal
+          isOpen={this.state.open}
+          onRequestClose={this.handleClose}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h2>Editar Publicacion</h2>
+          <div
+            style={{
+              padding: "2rem",
+              width: "500px",
+              display: "column",
+              justifyContent: "center",
+              alignItems: "space-eveenly",
+            }}
+          >
+            <EditPro
+              currentItem={this.state.currentItem}
+              closeModal={this.handleClose}
+            />
+          </div>
+        </Modal>
         {(items || []).length > 0 ? (
           <Table data={items} columns={columns} />
         ) : (

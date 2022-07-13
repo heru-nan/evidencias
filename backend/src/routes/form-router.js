@@ -166,4 +166,80 @@ router.post("/form/update/pub", async (req, res) => {
   });
 });
 
+router.post("/form/update/pro", async (req, res) => {
+  const { body } = req;
+  let error = true;
+  if (!body)
+    res.statusCode(400).json({ data: [], error: "No existen argumentos" });
+
+  // id_proyecto int(6) not null AUTO_INCREMENT,
+  //     palabras_clave varchar(300),
+  //     anio varchar(300),
+  //     codigo varchar(300),
+  //     nombre varchar(100),
+  //     objetivo varchar(300),
+  //     fuente_financiamiento varchar(300),
+  //     concurso varchar(300),
+  //     presupuesto varchar(300),
+  //     fecha_inicio varchar(300),
+  //     fecha_termino varchar(300),
+  //     primary key(`id_proyecto`)
+  const {
+    id_proyecto,
+    palabras_clave,
+    anio,
+    codigo,
+    nombre,
+    objetivo,
+    fuente_financiamiento,
+    concurso,
+    presupuesto,
+    fecha_inicio,
+    fecha_termino,
+  } = body;
+
+  console.log({
+    id_proyecto,
+    palabras_clave,
+    anio,
+    codigo,
+    nombre,
+    objetivo,
+    fuente_financiamiento,
+    concurso,
+    presupuesto,
+    fecha_inicio,
+    fecha_termino,
+  });
+
+  try {
+    const resInsertPub = await db.query(
+      `UPDATE proyecto
+      SET
+      palabras_clave = '${palabras_clave}',
+      anio = '${anio}',
+      codigo = '${codigo}',
+      nombre = '${nombre}',
+      objetivo = '${objetivo}',
+      fuente_financiamiento = '${fuente_financiamiento}',
+      concurso = '${concurso}',
+      presupuesto = '${presupuesto}',
+      fecha_inicio = '${fecha_inicio}',
+      fecha_termino = '${fecha_termino}'
+        WHERE
+      id_proyecto = ${id_proyecto};`
+    );
+    error = false;
+
+    console.log(resInsertPub);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return res.json({
+    data: [],
+    error,
+  });
+});
+
 module.exports = router;

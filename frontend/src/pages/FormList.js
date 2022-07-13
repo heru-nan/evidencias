@@ -21,6 +21,7 @@ import EditPub from "../components/EditPub";
 
 const customStyles = {
   content: {
+    height: "540px",
     top: "50%",
     left: "50%",
     right: "auto",
