@@ -242,7 +242,7 @@ class ItemsTable extends Component {
         {(items || []).length > 0 ? (
           <Table data={items} columns={columns} />
         ) : (
-          `No items to render... :(`
+          `No se han cargado elementos`
         )}
       </Wrapper>
     );

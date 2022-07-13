@@ -20,15 +20,6 @@ router.get("/form/pro", async (_, res) => {
   });
 });
 
-// id_publicacion int(6) not null,
-//     nombre_publicacion varchar(100),
-//     anio year,
-//     archivo varchar(100),
-//     revista varchar(100),
-//     citaciones varchar(300),
-//     clasificacion varchar(100),
-//     disciplina int(6),
-
 router.post("/form", async (req, res) => {
   const { body } = req;
   let error = true;
@@ -106,6 +97,70 @@ router.post("/form/pro", async (req, res) => {
   }
 
   res.json({
+    data: [],
+    error,
+  });
+});
+
+router.post("/form/update/pub", async (req, res) => {
+  const { body } = req;
+  let error = true;
+  if (!body)
+    res.statusCode(400).json({ data: [], error: "No existen argumentos" });
+
+  // id_publicacion int(6) not null,
+  // nombre_publicacion varchar(100),
+  // anio year,
+  // revista varchar(100),
+  // indexacion varchar(100),
+  // citaciones varchar(300),
+  // clasificacion varchar(100),
+  // disciplina int(6),
+  // primary key(`id_publicacion`),
+
+  const {
+    id_publicacion,
+    nombre_publicacion,
+    anio,
+    revista,
+    indexacion,
+    citaciones,
+    clasificacion,
+    disciplina,
+  } = body;
+
+  console.log({
+    id_publicacion,
+    nombre_publicacion,
+    anio,
+    revista,
+    indexacion,
+    citaciones,
+    clasificacion,
+    disciplina,
+  });
+
+  try {
+    const resInsertPub = await db.query(
+      `UPDATE publicacion
+      SET
+      nombre_publicacion = '${nombre_publicacion}',
+      anio = ${anio + 0},
+      revista = '${revista}',
+      indexacion = '${indexacion}',
+      citaciones = '${citaciones}',
+      clasificacion = '${clasificacion}'
+      WHERE
+      id_publicacion = ${id_publicacion};`
+    );
+    error = false;
+
+    console.log(resInsertPub);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return res.json({
     data: [],
     error,
   });

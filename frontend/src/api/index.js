@@ -23,12 +23,19 @@ export const getAllFormItems = (payload) => api.get(`/form`, payload);
 export const getAllFormProyectItems = (payload) =>
   api.get(`/form/pro`, payload);
 
+export const updatePublication = (payload) =>
+  api.post(`/form/update/pub`, payload);
+
+export const updateProyect = (payload) => api.post(`/form/update/pro`, payload);
+
 const apis = {
   getAllItems,
   getAllFormItems,
   insertItem,
   getAllFormProyectItems,
   link,
+  updateProyect,
+  updatePublication,
 };
 
 export default apis;

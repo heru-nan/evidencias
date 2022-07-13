@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { DeleteButton } from '../components/buttons';
-import api from '../api';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { DeleteButton } from "../components/buttons";
+import api from "../api";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const generateRandomImageWidth = () => {
   // between 40-69, with default of 42
   const randomNumberAsString = Math.random()
     .toString()
-    .match(/[4-6]\d/) || ['42'];
+    .match(/[4-6]\d/) || ["42"];
   return parseInt(randomNumberAsString) * 10;
 };
 
@@ -17,7 +17,7 @@ const generateRandomImageHeight = () => {
   // between 30-59, with default of 36
   const randomNumberAsString = Math.random()
     .toString()
-    .match(/[3-5]\d/) || ['36'];
+    .match(/[3-5]\d/) || ["36"];
   return parseInt(randomNumberAsString) * 10;
 };
 
@@ -80,7 +80,7 @@ class ItemsPlain extends Component {
   }
 
   componentDidMount() {
-    console.log('ItemsList: props');
+    console.log("ItemsList: props");
     console.log(this.props);
     // if (((this.props.itemData || {}).items || []).length) return;
 
@@ -90,39 +90,39 @@ class ItemsPlain extends Component {
   fetchAllItems = () => {
     api
       .getAllItems()
-      .then(resp => {
+      .then((resp) => {
         const { items } = resp.data;
-        console.log('getAllItems: resp');
+        console.log("getAllItems: resp");
         console.log(items);
         this.setState({ items });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`ERROR in 'getAllItems': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  deleteSingleItem = itemId => {
+  deleteSingleItem = (itemId) => {
     return api
       .deleteItemById(itemId)
-      .then(resp => {
-        console.log('deleteItemById: resp');
+      .then((resp) => {
+        console.log("deleteItemById: resp");
         console.log(resp);
         return resp;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`ERROR in 'deleteSingleItem': ${err}`);
         console.error(err);
         return err;
       });
   };
 
-  handleRemoveItem = data => {
+  handleRemoveItem = (data) => {
     const itemId = data;
 
-    this.deleteSingleItem(itemId).then(resp => {
-      console.log('handleRemoveItem: resp');
+    this.deleteSingleItem(itemId).then((resp) => {
+      console.log("handleRemoveItem: resp");
       console.log(resp);
       this.fetchAllItems();
     });
@@ -135,21 +135,27 @@ class ItemsPlain extends Component {
     return (
       <Wrapper>
         {(items || []).length > 0
-          ? items.map(item => (
+          ? items.map((item) => (
               <ItemContainer key={item._id}>
                 <ItemImage src={generateRandomCat()}></ItemImage>
                 <NameHeader>{item.name}</NameHeader>
                 <DetailParagraph>ID: {item._id}</DetailParagraph>
                 <DetailParagraph>Priority: {item.priority}</DetailParagraph>
                 <ButtonsWrapper>
-                  <Link data-update-id={item._id} to={`/item/update/${item._id}`}>
+                  <Link
+                    data-update-id={item._id}
+                    to={`/item/update/${item._id}`}
+                  >
                     Update Item
                   </Link>
-                  <DeleteButton id={item._id} onDelete={this.handleRemoveItem} />
+                  <DeleteButton
+                    id={item._id}
+                    onDelete={this.handleRemoveItem}
+                  />
                 </ButtonsWrapper>
               </ItemContainer>
             ))
-          : `No items to render... :(`}
+          : `No se han cargado elementos`}
       </Wrapper>
     );
   }

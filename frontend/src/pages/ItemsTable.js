@@ -172,7 +172,7 @@ class ItemsList extends Component {
             minRows={10}
           />
         ) : (
-          `No items to render... :(`
+          `No se han cargado elementos`
         )}
       </Wrapper>
     );
