@@ -20,7 +20,6 @@ const get = async () => {
   try {
     const resSelectArchivo = await db.query(`select * from archivo;`);
 
-    console.log(resSelectArchivo);
     return resSelectArchivo;
   } catch (error) {
     console.log("service evidencias error: ", error);
@@ -31,7 +30,7 @@ const get = async () => {
 const link = async (id_archivo, id_fk, type) => {
   try {
     let resInsertPub = null;
-    if (type === "publicacion") {
+    if (type === "pub") {
       resInsertPub = await db.query(
         `UPDATE archivo 
                 SET 
@@ -41,6 +40,14 @@ const link = async (id_archivo, id_fk, type) => {
                `
       );
     } else {
+      resInsertPub = await db.query(
+        `UPDATE archivo 
+                SET 
+                    id_fk_pro = ${id_fk}
+                WHERE
+                    id = ${id_archivo};
+               `
+      );
     }
 
     console.log(resInsertPub);

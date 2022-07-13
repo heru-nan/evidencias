@@ -11,6 +11,15 @@ router.get("/form", async (_, res) => {
   });
 });
 
+router.get("/form/pro", async (_, res) => {
+  const resPublicacion = await db.query(`select * from proyecto;`);
+
+  res.json({
+    data: resPublicacion,
+    error: null,
+  });
+});
+
 // id_publicacion int(6) not null,
 //     nombre_publicacion varchar(100),
 //     anio year,
@@ -35,6 +44,59 @@ router.post("/form", async (req, res) => {
       `insert into publicacion
       (id_publicacion, nombre_publicacion, revista, indexacion)
       values ('${identificador}', '${titulo}', '${revista}', '${indexacion}');`
+    );
+    error = false;
+
+    console.log(resInsertPub.affectedRows);
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.json({
+    data: [],
+    error,
+  });
+});
+
+router.post("/form/pro", async (req, res) => {
+  const { body } = req;
+  let error = true;
+  if (!body)
+    res.statusCode(400).json({ data: [], error: "No existen argumentos" });
+
+  const {
+    nombre,
+    ffinanciamiento,
+    concurso,
+    codigo,
+    añoAdjudicacion,
+    fechaInicio,
+    fechaTermino,
+    montoTotal,
+    palabrasClaves,
+    objetivos,
+  } = body;
+
+  console.log({
+    nombre,
+    ffinanciamiento,
+    concurso,
+    codigo,
+    añoAdjudicacion,
+    fechaInicio,
+    fechaTermino,
+    montoTotal,
+    palabrasClaves,
+    objetivos,
+  });
+
+  try {
+    const resInsertPub = await db.query(
+      `insert into proyecto
+      (palabras_clave, anio, codigo, nombre, objetivo, fuente_financiamiento, concurso, fecha_inicio, fecha_termino, presupuesto)
+      values ('${palabrasClaves}', ${añoAdjudicacion}, '${codigo}', '${nombre}',
+      '${objetivos}', '${ffinanciamiento}','${concurso}', '${fechaInicio}'
+      ,'${fechaTermino}', '${montoTotal}');`
     );
     error = false;
 

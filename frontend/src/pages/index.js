@@ -2,6 +2,7 @@ import ItemInsert from "./ItemInsert";
 import Items from "./Items";
 import ItemsList from "./ItemsList";
 import FormList from "./FormList";
+import FormProyectList from "./FormProyectList";
 import ItemsPlain from "./ItemsPlain";
 import ItemsTable from "./ItemsTable";
 import ItemUpdate from "./ItemUpdate";
@@ -18,4 +19,5 @@ export {
   ItemUpdate,
   RegisterPublication,
   RegisterProyect,
+  FormProyectList,
 };

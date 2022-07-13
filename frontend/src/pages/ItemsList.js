@@ -98,7 +98,59 @@ class ItemsTable extends Component {
     this.setState({ open: false, type: null });
   };
 
-  handleAsociar = (currentItem) => {};
+  handleAsociar = (currentItem) => {
+    console.log(currentItem);
+    console.log(this.state.currentItem, this.state.type);
+    if (this.state.type === "pro") {
+      api
+        .link({
+          id_archivo: this.state.currentItem.id,
+          id_fk: currentItem.id_proyecto,
+          type: this.state.type,
+        })
+        .then((res) => {
+          console.log(res);
+          this.handleClose();
+          api
+            .getAllItems()
+            .then((resp) => {
+              const { items } = resp.data;
+              console.log("getAllItems: resp");
+              console.log(items);
+              this.setState({ items });
+            })
+            .catch((err) => {
+              console.error(`ERROR in 'getAllItems': ${err}`);
+              console.error(err);
+              return err;
+            });
+        });
+    } else {
+      api
+        .link({
+          id_archivo: this.state.currentItem.id,
+          id_fk: currentItem.id_publicacion,
+          type: this.state.type,
+        })
+        .then((res) => {
+          console.log(res);
+          this.handleClose();
+          api
+            .getAllItems()
+            .then((resp) => {
+              const { items } = resp.data;
+              console.log("getAllItems: resp");
+              console.log(items);
+              this.setState({ items });
+            })
+            .catch((err) => {
+              console.error(`ERROR in 'getAllItems': ${err}`);
+              console.error(err);
+              return err;
+            });
+        });
+    }
+  };
 
   componentDidMount() {
     this.fetchAllItems();
@@ -125,6 +177,19 @@ class ItemsTable extends Component {
         console.log("getAllFormItems: resp");
         console.log("data", data);
         this.setState({ pubs: data });
+      })
+      .catch((err) => {
+        console.error(`ERROR in 'getAllItems': ${err}`);
+        console.error(err);
+        return err;
+      });
+    api
+      .getAllFormProyectItems()
+      .then((resp) => {
+        const { data } = resp.data;
+        console.log("getAllFormItems: resp");
+        console.log("data", data);
+        this.setState({ pros: data });
       })
       .catch((err) => {
         console.error(`ERROR in 'getAllItems': ${err}`);
@@ -272,63 +337,127 @@ class ItemsTable extends Component {
                 alignItems: "space-eveenly",
               }}
             >
-              <Table
-                data={this.state.pubs}
-                columns={[
-                  {
-                    Header: "ID",
-                    accessor: "id_publicacion",
-                    // filterable: true,
-                    Cell: (props) => {
-                      console.log(props);
-                      const { original } = props.cell.row;
-                      return (
-                        <span data-item-id={original._id}>{props.value}</span>
-                      );
+              {this.state.type === "pub" ? (
+                <Table
+                  data={this.state.pubs}
+                  columns={[
+                    {
+                      Header: "ID",
+                      accessor: "id_publicacion",
+                      // filterable: true,
+                      Cell: (props) => {
+                        console.log(props);
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-item-id={original._id}>{props.value}</span>
+                        );
+                      },
                     },
-                  },
-                  {
-                    Header: "Nombre",
-                    accessor: "nombre_publicacion",
-                    // filterable: true,
-                    Cell: (props) => {
-                      const { original } = props.cell.row;
-                      return (
-                        <span data-name={original.name}>{props.value}</span>
-                      );
+                    {
+                      Header: "Nombre",
+                      accessor: "nombre_publicacion",
+                      // filterable: true,
+                      Cell: (props) => {
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-name={original.name}>{props.value}</span>
+                        );
+                      },
                     },
-                  },
-                  {
-                    Header: "Revista",
-                    accessor: "revista",
-                    // filterable: true,
-                    Cell: (props) => {
-                      const { original } = props.cell.row;
-                      return (
-                        <span data-name={original.filename}>{props.value}</span>
-                      );
+                    {
+                      Header: "Revista",
+                      accessor: "revista",
+                      // filterable: true,
+                      Cell: (props) => {
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-name={original.filename}>
+                            {props.value}
+                          </span>
+                        );
+                      },
                     },
-                  },
-                  {
-                    Header: "Acciones",
-                    accessor: "_delete",
-                    Cell: (props) => {
-                      const { original } = props.cell.row;
-                      return (
-                        <span data-delete-id={original._id}>
-                          <Button
-                            color="primary"
-                            id={original._id}
-                            onClick={() => this.handleAsociar(original)}
-                          >
-                            Asociar
-                          </Button>
-                        </span>
-                      );
+                    {
+                      Header: "Acciones",
+                      accessor: "_delete",
+                      Cell: (props) => {
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-delete-id={original._id}>
+                            <Button
+                              color="primary"
+                              id={original._id}
+                              onClick={() => this.handleAsociar(original)}
+                            >
+                              Asociar
+                            </Button>
+                          </span>
+                        );
+                      },
                     },
-                  },
-                ]}
-              />
+                  ]}
+                />
+              ) : (
+                <Table
+                  data={this.state.pros}
+                  columns={[
+                    {
+                      Header: "ID",
+                      accessor: "id_proyecto",
+                      // filterable: true,
+                      Cell: (props) => {
+                        console.log(props);
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-item-id={original._id}>{props.value}</span>
+                        );
+                      },
+                    },
+                    {
+                      Header: "Nombre",
+                      accessor: "nombre",
+                      // filterable: true,
+                      Cell: (props) => {
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-name={original.name}>{props.value}</span>
+                        );
+                      },
+                    },
+                    {
+                      Header: "Palabras clave",
+                      accessor: "palabras_clave",
+                      // filterable: true,
+                      Cell: (props) => {
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-name={original.filename}>
+                            {props.value}
+                          </span>
+                        );
+                      },
+                    },
+                    {
+                      Header: "Acciones",
+                      accessor: "_delete",
+                      Cell: (props) => {
+                        const { original } = props.cell.row;
+                        return (
+                          <span data-delete-id={original._id}>
+                            <Button
+                              color="primary"
+                              id={original._id}
+                              onClick={() => this.handleAsociar(original)}
+                            >
+                              Asociar
+                            </Button>
+                          </span>
+                        );
+                      },
+                    },
+                  ]}
+                />
+              )}
             </div>
           )}
 

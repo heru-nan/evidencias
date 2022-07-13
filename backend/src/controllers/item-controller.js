@@ -45,7 +45,7 @@ linkItemWithFile = (req, res) => {
 
   const item = link(id_archivo, id_fk, type);
 
-  console.log(item);
+  return res.json({ success: true });
 };
 
 module.exports = {

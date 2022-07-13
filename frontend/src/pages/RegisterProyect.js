@@ -32,6 +32,21 @@ class FormProyect extends Component {
     });
   };
 
+  cleanFields = () => {
+    this.setState({
+      nombre: "",
+      ffinanciamiento: "",
+      concurso: "",
+      codigo: "",
+      añoAdjudicacion: 0,
+      fechaInicio: "",
+      fechaTermino: "",
+      montoTotal: 0,
+      palabrasClaves: "",
+      objetivo: "",
+    });
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
 

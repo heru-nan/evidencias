@@ -7,7 +7,13 @@ import { routes } from "../constants";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
 
-import { ItemsList, ItemsPlain, ItemsTable, FormList } from "../pages";
+import {
+  ItemsList,
+  ItemsPlain,
+  ItemsTable,
+  FormList,
+  FormProyectList,
+} from "../pages";
 
 const LinksGridContainer = styled.div`
   display: grid;
@@ -39,6 +45,11 @@ const itemsPageVariants = [
     toPathname: `${routes.ITEMS}/form`,
     pageComonent: FormList,
   },
+  {
+    name: "Proyectos",
+    toPathname: `${routes.ITEMS}/form/pro`,
+    pageComonent: FormProyectList,
+  },
 ];
 
 class Items extends Component {
@@ -48,6 +59,11 @@ class Items extends Component {
       <Switch>
         <Route exact path={routes.ITEMS} component={ItemsList} />
         <Route exact path={`${routes.ITEMS}/form`} component={FormList} />
+        <Route
+          exact
+          path={`${routes.ITEMS}/form/pro`}
+          component={FormProyectList}
+        />
 
         <Route
           exact

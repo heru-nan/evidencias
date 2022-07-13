@@ -23,6 +23,7 @@ router.get("/items", ItemController.getItems);
 router.post("/items/link", ItemController.linkItemWithFile);
 // router.get("/item/:id", ItemController.getItemById);
 router.post("/item", upload.single("file"), ItemController.createItem);
+router.post("/item/link", ItemController.linkItemWithFile);
 // router.put("/item/:id", ItemController.updateItem);
 // router.delete("/item/:id", ItemController.deleteItem);
 

@@ -17,12 +17,18 @@ export const insertItem = (payload) => api.post(`/item`, payload);
 export const updateItemById = (id, payload) => api.put(`/item/${id}`, payload);
 export const deleteItemById = (id) => api.delete(`/item/${id}`);
 
+export const link = (payload) => api.post(`/item/link`, payload);
+
 export const getAllFormItems = (payload) => api.get(`/form`, payload);
+export const getAllFormProyectItems = (payload) =>
+  api.get(`/form/pro`, payload);
 
 const apis = {
   getAllItems,
   getAllFormItems,
   insertItem,
+  getAllFormProyectItems,
+  link,
 };
 
 export default apis;
