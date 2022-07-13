@@ -31,13 +31,16 @@ create table financiamiento(
 create table proyecto(
 	id_proyecto int(6) not null AUTO_INCREMENT,
     palabras_clave varchar(300),
-    anio year,
-    numero int(6) not null,
-    nombre_proyecto varchar(100),
+    anio varchar(300),
+    codigo varchar(300),
+    nombre varchar(100),
     objetivo varchar(300),
-    presupuesto int(6),
-    primary key(`id_proyecto`),
-    foreign key(`presupuesto`) references financiamiento(`id_financiamiento`)
+    fuente_financiamiento varchar(300),
+    concurso varchar(300),
+    presupuesto varchar(300),
+    fecha_inicio varchar(300),
+    fecha_termino varchar(300),
+    primary key(`id_proyecto`)
 );
 
 create table disciplina(
