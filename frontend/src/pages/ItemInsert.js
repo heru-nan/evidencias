@@ -110,7 +110,7 @@ const ItemInsert = () => {
     }
 
     axios
-      .post("http://localhost:8001/api/item", formData, {
+      .post("http://localhost:5000/api/item", formData, {
         headers: {
           "Content-type": "multipart/form-data",
         },

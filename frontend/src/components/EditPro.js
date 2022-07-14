@@ -92,6 +92,13 @@ export default function EditPub({ currentItem, closeModal }) {
         value={fields.id_proyecto}
         onChange={onChangeField}
       />
+      <Label>Nombre: </Label>
+      <InputText
+        id="nombre"
+        type="text"
+        value={fields.nombre}
+        onChange={onChangeField}
+      />
       <Label>anio: </Label>
       <InputText
         id="anio"

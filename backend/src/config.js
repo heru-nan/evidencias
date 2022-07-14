@@ -5,7 +5,7 @@ const config = {
     user: "root",
     password: "root",
     database: "evidencias",
-    port: !process.env.PRODUCTION ? 8003 : "",
+    port: !process.env.PRODUCTION ? 5002 : "",
   },
 };
 module.exports = config;
