@@ -109,8 +109,10 @@ const ItemInsert = () => {
       console.log(key, value);
     }
 
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
     axios
-      .post("http://localhost:5000/api/item", formData, {
+      .post(apiUrl + "/item", formData, {
         headers: {
           "Content-type": "multipart/form-data",
         },

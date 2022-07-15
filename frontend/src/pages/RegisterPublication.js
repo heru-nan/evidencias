@@ -112,8 +112,11 @@ class FPublic extends Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(this.state),
       };
+
+      const apiUrl =
+        process.env.REACT_APP_API_URL || "http://localhost:5000/api";
       // eslint-disable-next-line no-useless-concat
-      fetch("http://localhost:5000/api" + "/form", requestOptions)
+      fetch(apiUrl + "/form", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           if (data.error) console.log("error ", data.error);
