@@ -1,14 +1,13 @@
-const express = require("express");
+import express from "express";
+import multer from "multer"
+import path from "path"
 
 const ItemController = require("../controllers/item-controller");
 
-// MIDDLEWARE
-const multer = require("multer");
-const path = require("path");
-
+// INIT MIDDLEWARE
 const storage = multer.diskStorage({
   destination: "./public/uploads",
-  filename: function (req, file, cb) {
+  filename: function (req: any, file: any, cb: any): void {
     cb(
       null,
       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
@@ -27,4 +26,4 @@ router.post("/item/link", ItemController.linkItemWithFile);
 // router.put("/item/:id", ItemController.updateItem);
 // router.delete("/item/:id", ItemController.deleteItem);
 
-module.exports = router;
+export default router

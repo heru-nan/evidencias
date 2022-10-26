@@ -1,8 +1,8 @@
-const db = require("../db.js");
+const query = require("../db.ts");
 
 const insert = async (name, filename) => {
   try {
-    const resInsertPub = await db.query(
+    const resInsertPub = await query(
       `insert archivo
             (nombre, ruta)
             values ('${name}', '${filename}');`
@@ -18,7 +18,7 @@ const insert = async (name, filename) => {
 
 const get = async () => {
   try {
-    const resSelectArchivo = await db.query(`select * from archivo;`);
+    const resSelectArchivo = await query(`select * from archivo;`);
 
     return resSelectArchivo;
   } catch (error) {
@@ -31,7 +31,7 @@ const link = async (id_archivo, id_fk, type) => {
   try {
     let resInsertPub = null;
     if (type === "pub") {
-      resInsertPub = await db.query(
+      resInsertPub = await query(
         `UPDATE archivo 
                 SET 
                     id_fk_pub = ${id_fk}
