@@ -23,3 +23,11 @@ o
 ```
 docker-compose -f dev-db.yml up --build
 ```
+
+```
+docker stop $ (docker ps -a -q)
+```
+
+```
+docker rm $ (docker ps -a -q)
+```
