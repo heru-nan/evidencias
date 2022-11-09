@@ -4,8 +4,8 @@
 
 import express from "express"
 import sequelize from './sequelize';
-// import formRoutes from "./routes/form-router";
-// import itemRoutes from "./routes/item-router";
+import formRoutes from "./routes/form-router";
+import itemRoutes from "./routes/item-router";
 
 const app = express();
 
@@ -28,9 +28,8 @@ app.use(function (req: any, res: { header: (arg0: string, arg1: string) => void;
   next();
 });
 
-// end-points
-// app.use("/api", formRoutes);
-// app.use("/api", itemRoutes);
+app.use("/api", formRoutes);
+app.use("/api", itemRoutes);
 
 app.get("/", async function (_req: any, res: { json: (arg0: { desc: string; rutas: string[]; }) => void; }) {
   res.json({
