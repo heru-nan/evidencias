@@ -12,18 +12,6 @@ const app = express();
 // Config
 const PORT = 5000;
 
-const tryConnection = async () => {
-  console.log("TRY ...")
-  console.log(sequelize)
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-} 
-
-
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -45,7 +33,6 @@ app.use(function (req: any, res: { header: (arg0: string, arg1: string) => void;
 // app.use("/api", itemRoutes);
 
 app.get("/", async function (_req: any, res: { json: (arg0: { desc: string; rutas: string[]; }) => void; }) {
-  await tryConnection()
   res.json({
     desc: "Backend de aplicacion de envio de formularios",
     rutas: ["/api/"],
