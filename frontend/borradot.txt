@@ -1,0 +1,67 @@
+Tutoriales sobre Diagramas:
+- Casos de uso: https://creately.com/blog/es/diagramas/tutorial-diagrama-caso-de-uso/
+- Clases: https://creately.com/blog/es/diagramas/tutorial-de-diagrama-de-clases/
+- Despliegue: https://creately.com/blog/es/diagramas/tutorial-de-diagrama-de-despliegue/
+- Componentes: https://creately.com/blog/es/diagramas/tutorial-de-diagrama-de-componentes/
+- Secuencia: https://creately.com/blog/es/diagramas/tutorial-del-diagrama-de-secuencia/
+
+Indicador - Descripcion
+m25 - num de publicaciones (%anual)
+m26 - num de publicaciones relacionadas a ingenieria (%anual)
+m49 - num de publicaciones con coautores extrangeros
+
+
+dudas del modulo de evidencias:
+
+
+2- formulario de subida de publicacion: le gustaria que el adjuntar archivos este dentro del formulario 
+u lo dejamos como está(mostrar lo que hay) y preguntar si añadir campos de coautor extran y relacionado a
+ingeniería, 
+
+
+
+ojala copy/paste problemas con autores (mucho texto manual)
+de ves en cuando mandan excel con varias publicaciones, y ella los transpasa indiividualmente (copia y pega)
+check box de extrangeros (u institucion extrangera)
+relacion con ingenieria: tabla revistas indexadas con tipos (areas) por recibir con excel de sonia
+agregar campo de clasificacion general a ingenirera y luego mas detallado sobre cual ing
+poner el adjuntar archivo en el mismo formulario[nt leo: igual dejar la subida de archivos solita, pq igual pueden 
+subir archivos con publicaciones dentro y sonia las transpasa a la db]
+(sonia iigual quiere subir evidencias u publicacion)
+¿importante: afiliacion uach, nomnbre academico?
+problemas con saber si son extranjeros <-
+
+
+pedir si tiene un formulario que envie a los provedores y si no preguntar que es lo que pide 
+exactamente a las personas 
+
+planilla recibir por correo desde sonia
+
+
+----diseño no tan tan importante, pero tiene que funcionar
+
+5- preguntar si le parece bien la idea de campos obligatorios??
+y si es si, cuales
+
+si todos
+
+3) pedir ejemplos de archivos que podrian adjuntarse al registro de una publicación
+
+documentos, word, publicacion como tal, [wos/scopus]
+
+
+4- cuando surgen errores humanos  en la subida de una publicación o archivo que usted no pueda corregir,
+ usted que cree que es lo mejor, que el proveedor suba todo desde cero o que pueda subir lo que le falto
+o corregir algo y hacer un proceso más corto y pq
+
+mejor no pedir que los proovedores no arreglen
+-arreglar un punto especifico-
+no subir todo desde cero, si no que cuando el dato es muy importante y esta malo, dar la posibilidad de editar
+proyectos es importante arreglar
+generalmente ella arregla
+
+
+
+
+
+
