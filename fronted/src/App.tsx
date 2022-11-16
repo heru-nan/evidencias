@@ -10,6 +10,7 @@ import RegProyect from './components/RegProyect';
 import RegPubli from './components/RegPubli';
 import UploadForm from './components/UploadForm';
 
+//testeando commit
 
 function App() {
   const currentPage = window.location.href.split("/")[3]
