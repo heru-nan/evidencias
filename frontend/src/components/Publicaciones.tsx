@@ -55,6 +55,7 @@ function Publicacion(){
         alert("subido correctamente")
         
         // aqui va lo del mandar a backend y revisar que todo este bien??
+        //por docker:docker ps id-- stop, rm, docker compose down --volumes
     }
 
 

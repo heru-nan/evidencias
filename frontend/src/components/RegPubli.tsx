@@ -25,7 +25,7 @@ function RegPubli() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(values)
+      body: JSON.stringify({autores:values.autores, titulo:values.titulo, revista:values.revista, indexacion:values.indexacion, autoresExtranjeros:values.autoresEx, issnDoi:values.issnDoi, anio:values.año, clasificacion:values.clasificacion, disciplina:values.disciplina })
     }).then(res => res.json).then(res => console.log(res));
 
 
