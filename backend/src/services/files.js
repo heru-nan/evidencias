@@ -18,8 +18,7 @@ const insert = async (name, filename) => {
 
 const get = async () => {
   try {
-    const resSelectArchivo = await query(`select * from archivo;`);
-
+    const resSelectArchivo = await query.default(`select * from archivo;`);
     return resSelectArchivo;
   } catch (error) {
     console.log("service evidencias error: ", error);
