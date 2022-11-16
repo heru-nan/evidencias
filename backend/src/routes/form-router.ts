@@ -30,25 +30,24 @@ router.post("/form", async (req, res) => {
 
   }
 
-  const { autores, titulo, revista, indexacion, identificador } = body;
-
-  console.log({ autores, titulo, revista, indexacion, identificador });
+  const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
 
   try {
     const resInsertPub = await query(
       `insert into publicacion
-      (id_publicacion, nombre_publicacion, revista, indexacion)
-      values ('${identificador}', '${titulo}', '${revista}', '${indexacion}');`
+      (issn_doi, titulo, autores, revista, autores_extranjeros, indexacion, anio,  clasificacion, disciplina)
+      values ('${issnDoi}', '${autores}', '${titulo}', '${revista}','${autoresExtranjeros}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
     );
     error = false;
 
     console.log(resInsertPub.affectedRows);
   } catch (error) {
+    error = true;
     console.log(error);
   }
 
   res.json({
-    data: [],
+    data: error ? "Error al subir los cambios": "Correctamente subidos los cambios",
     error,
   });
 });

@@ -35,7 +35,7 @@ create table publicacion(
     revista varchar(100),
     autores_extranjeros boolean,
     indexacion varchar(100), 
-    anio year,
+    anio varchar(100),
     citaciones varchar(300),
     clasificacion varchar(100),
     disciplina varchar(100),
