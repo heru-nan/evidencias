@@ -16,20 +16,29 @@ function RegPubli() {
   };
 
   function formularioCallback() {
-    alert("subido correctamente")
-    console.log(values)
+    alert("subido correctamente");
+    console.log(values);
 
-    fetch('http://localhost:5000/api/form', {
-      method: 'POST',
+    fetch("http://localhost:5000/api/form", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({autores:values.autores, titulo:values.titulo, revista:values.revista, indexacion:values.indexacion, autoresExtranjeros:values.autoresEx, issnDoi:values.issnDoi, anio:values.año, clasificacion:values.clasificacion, disciplina:values.disciplina })
-    }).then(res => res.json).then(res => console.log(res));
-
-
-    
+      body: JSON.stringify({
+        autores: values.autores,
+        titulo: values.titulo,
+        revista: values.revista,
+        indexacion: values.indexacion,
+        autoresExtranjeros: values.autoresEx,
+        issnDoi: values.identificador,
+        anio: values.año,
+        clasificacion: values.clasificacion,
+        disciplina: values.disciplina,
+      }),
+    })
+      .then((res) => res.json)
+      .then((res) => console.log(res));
 
     //if de no refrescar si esta mal todo xd
     // aqui va lo del mandar a backend y revisar que todo este bien??

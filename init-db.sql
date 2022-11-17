@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `archivo`;
 
 create table publicacion(
     publicacion_id int not null AUTO_INCREMENT primary key,
-	issn_doi int(6) not null,
+	issn_doi varchar(100) not null,
     titulo varchar(100),
     autores varchar(100),
     revista varchar(100),
