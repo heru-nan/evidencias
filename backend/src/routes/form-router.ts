@@ -32,13 +32,13 @@ router.post("/form", async (req, res) => {
 
   const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
 
-  console.log({ autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina })
+
 
   try {
     const resInsertPub = await query(
       `insert into publicacion
       (issn_doi, titulo, autores, revista, autores_extranjeros, indexacion, anio,  clasificacion, disciplina)
-      values ('${issnDoi}', '${autores}', '${titulo}', '${revista}','${autoresExtranjeros}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
+      values ('${issnDoi}', '${autores}', '${titulo}', '${revista}','${autoresExtranjeros ? 1 : 0}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
     );
     error = false;
 
