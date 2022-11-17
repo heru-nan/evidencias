@@ -32,6 +32,8 @@ router.post("/form", async (req, res) => {
 
   const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
 
+  console.log({ autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina })
+
   try {
     const resInsertPub = await query(
       `insert into publicacion
@@ -42,7 +44,6 @@ router.post("/form", async (req, res) => {
 
     console.log(resInsertPub.affectedRows);
   } catch (error) {
-    error = true;
     console.log(error);
   }
 
