@@ -55,6 +55,7 @@ function Publicacion(){
         alert("subido correctamente")
         
         // aqui va lo del mandar a backend y revisar que todo este bien??
+        //por docker:docker ps id-- stop, rm, docker compose down --volumes
     }
 
 
@@ -62,16 +63,16 @@ function Publicacion(){
 
     const [showEdit,setShowEdit] = React.useState(false)
 
+    const [publicaciones,setPublicaciones] = React.useState<dataPublicacion[] | []>([])
+
     useEffect(()=>{
-        fetch("/form/pro")
+        fetch("http://localhost:5000/api/form")
         .then(res => res.json())
-        .then(pp => {
-            console.log(pp)
+        .then(resPub => {
+            setPublicaciones(resPub.data)
+            console.log(resPub.data)
         })
     },[])
-
-    
-
 
     const handleShow = (d:boolean,id:string) => {
         if(id === "editar"){
@@ -125,7 +126,7 @@ function Publicacion(){
 
                     <tbody>
 
-                        {dataExample.map((archivos)=>(
+                        {publicaciones.map((archivos)=>(
                             <tr>
                                 <td>{archivos.id}</td>
                                 <td>{archivos.titulo}</td>

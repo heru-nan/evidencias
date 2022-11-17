@@ -7,16 +7,30 @@ function RegPubli() {
     titulo: "",
     autores: "",
     revista: "",
-    index: "",
-    issnDoi: "",
+    indexacion: "",
+    identificador: 0,
     año: "",
     disciplina: "",
     clasificacion: "",
     autoresEx: "off",
   };
 
-  async function formularioCallback() {
-    alert("subido correctamente");
+  function formularioCallback() {
+    alert("subido correctamente")
+    console.log(values)
+
+    fetch('http://localhost:5000/api/form', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({autores:values.autores, titulo:values.titulo, revista:values.revista, indexacion:values.indexacion, autoresExtranjeros:values.autoresEx, issnDoi:values.issnDoi, anio:values.año, clasificacion:values.clasificacion, disciplina:values.disciplina })
+    }).then(res => res.json).then(res => console.log(res));
+
+
+    
+
     //if de no refrescar si esta mal todo xd
     // aqui va lo del mandar a backend y revisar que todo este bien??
   }
@@ -93,8 +107,8 @@ function RegPubli() {
         <Label sm={2}>Indexación</Label>
         <Col sm={9}>
           <Input
-            id="index"
-            name="index"
+            id="indexacion"
+            name="indexacion"
             placeholder="Ingresar indexación"
             onChange={onChange}
             required
@@ -106,8 +120,8 @@ function RegPubli() {
         <Label sm={2}>IssnDoi</Label>
         <Col sm={9}>
           <Input
-            id="issnDoi"
-            name="issnDoi"
+            id="identificador"
+            name="identificador"
             placeholder="Ingresar issn/Doi"
             onChange={onChange}
             required
