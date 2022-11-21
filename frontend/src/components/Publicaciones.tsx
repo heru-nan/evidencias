@@ -41,6 +41,7 @@ const dataExample: dataPublicacion[] = [
 function Publicacion(){
 
     const initialState = {
+        id:0,
         titulo: "",
         autores: "",
         revista: "",
@@ -51,8 +52,13 @@ function Publicacion(){
     }
 
     async function formularioCallback(){
-        console.log(values)
-        alert("subido correctamente")
+
+        const i = {publicacion_id:targetId}
+        const j = values
+        const k = {...i,...j}
+        console.log(k)
+        handleEdit(k) //editar fetch??
+        alert("ediatado correctamente")
         
         // aqui va lo del mandar a backend y revisar que todo este bien??
         //por docker:docker ps id-- stop, rm, docker compose down --volumes
@@ -62,6 +68,8 @@ function Publicacion(){
     const {onChange,onSubmit,values} = UseForm(formularioCallback,initialState)
 
     const [showEdit,setShowEdit] = React.useState(false)
+
+    const [targetId,setTargetId] = React.useState(0)
 
     const [publicaciones,setPublicaciones] = React.useState<dataPublicacion[] | []>([])
 
@@ -74,11 +82,25 @@ function Publicacion(){
         })
     },[])
 
-    const handleShow = (d:boolean,id:string) => {
+    const handleShow = (d:boolean,id:string,idtarget) => {
         if(id === "editar"){
             setShowEdit(d)
+            setTargetId(idtarget)
         }
             
+    }
+
+    const handleEdit = (data:any) =>{
+
+        fetch("http://localhost:5000/form/update/pub", {
+            method: 'POST',
+            body: JSON.stringify(data), 
+            headers:{
+              'Content-Type': 'application/json'
+            }
+          }).then(res => res.json())
+          .catch(error => console.error('Error:', error))
+          .then(response => console.log('Success:', response));
     }
 
 
@@ -97,6 +119,10 @@ function Publicacion(){
                             </th>
 
                             <th>
+                                Autores
+                            </th>
+
+                            <th>
                                 Revisa
                             </th>
 
@@ -109,7 +135,7 @@ function Publicacion(){
                             </th>
 
                             <th>
-                                Citaciones
+                                Aut.Ex
                             </th>
 
                             <th>
@@ -128,16 +154,17 @@ function Publicacion(){
 
                         {publicaciones.map((archivos)=>(
                             <tr>
-                                <td>{archivos.id}</td>
+                                <td>{archivos.publicacion_id}</td>
+                                <td>{archivos.autores}</td>
                                 <td>{archivos.titulo}</td>
                                 <td>{archivos.revista}</td>
                                 <td>{archivos.indexacion}</td>
-                                <td>{archivos.año}</td>
-                                <td>{archivos.citaciones}</td>
+                                <td>{archivos.anio}</td>
+                                <td>{archivos.autores_extranjeros}</td>
                                 <td>{archivos.clasificacion}</td>
                                 <td>{archivos.disciplina}</td>
                                 <td>
-                                    <Button color = "primary" onClick={()=>handleShow(true,"editar")}>Editar</Button>
+                                    <Button color = "primary" onClick={()=>handleShow(true,"editar",archivos.publicacion_id)}>Editar</Button>
                                 </td>
                             </tr>
                         ))}
@@ -205,6 +232,23 @@ function Publicacion(){
                                     </FormGroup>
 
                                     <FormGroup row>
+                                        <Label sm={2}>Año</Label>
+                                        <Col sm={9}>
+                                        <Input
+                                            id="año"
+                                            name="año"
+                                            placeholder="Ingresar año"
+                                            onChange={onChange}
+                                            required
+                                        />
+                                        </Col>
+                                    </FormGroup>
+
+
+
+
+
+                                    <FormGroup row>
                                         <Label sm={2}>clasificacion</Label>
                                         <Col sm={9}>
                                             <Input
@@ -217,12 +261,12 @@ function Publicacion(){
                                     </FormGroup>
 
                                     <FormGroup row>
-                                        <Label sm={2}>Citaciones</Label>
+                                        <Label sm={2}>Disciplina</Label>
                                         <Col sm={9}>
                                             <Input
-                                                id= "citaciones"
-                                                name = "citaciones"
-                                                placeholder="Ingresar n° citaciones"
+                                                id= "disciplina"
+                                                name = "disciplina"
+                                                placeholder="Ingresar disciplina"
                                                 onChange = {onChange}
                                             />
                                         </Col>
@@ -239,7 +283,7 @@ function Publicacion(){
                             </ModalBody>
 
                             <ModalFooter>
-                                <Button color="danger" onClick={()=>handleShow(false,"editar")}>cancelar</Button>
+                                <Button color="danger" onClick={()=>handleShow(false,"editar",0)}>cancelar</Button>
                                 
                             </ModalFooter>
 
