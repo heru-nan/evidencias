@@ -41,26 +41,25 @@ const dataExample: dataPublicacion[] = [
 function Publicacion(){
 
     const initialState = {
-        id:0,
+        publicacion_id:0,
         titulo: "",
         autores: "",
         revista: "",
-        index: "",
+        indexacion: "",
+        anio: "",
+        autoresEx: 0,
         clasificacion: "",
-        citaciones:0
+        disciplina: ""
 
     }
 
     async function formularioCallback(){
 
-        const i = {publicacion_id:targetId}
-        const j = values
-        const k = {...i,...j}
-        console.log(k)
-        handleEdit(k) //editar fetch??
+        console.log("aquiiii")
+        console.log(publiEdit)
+        //handleEdit(publiEdit) //editar fetch??
         alert("ediatado correctamente")
         
-        // aqui va lo del mandar a backend y revisar que todo este bien??
         //por docker:docker ps id-- stop, rm, docker compose down --volumes
     }
 
@@ -73,6 +72,9 @@ function Publicacion(){
 
     const [publicaciones,setPublicaciones] = React.useState<dataPublicacion[] | []>([])
 
+    const [publiEdit,setPubliEdit] = React.useState(initialState)
+
+
     useEffect(()=>{
         fetch("http://localhost:5000/api/form")
         .then(res => res.json())
@@ -82,10 +84,11 @@ function Publicacion(){
         })
     },[])
 
-    const handleShow = (d:boolean,id:string,idtarget) => {
+    const handleShow = (d:boolean,id:string,idtarget,datos) => {
         if(id === "editar"){
             setShowEdit(d)
             setTargetId(idtarget)
+            setPubliEdit(datos)
         }
             
     }
@@ -164,7 +167,7 @@ function Publicacion(){
                                 <td>{archivos.clasificacion}</td>
                                 <td>{archivos.disciplina}</td>
                                 <td>
-                                    <Button color = "primary" onClick={()=>handleShow(true,"editar",archivos.publicacion_id)}>Editar</Button>
+                                    <Button color = "primary" onClick={()=>handleShow(true,"editar",archivos.publicacion_id,archivos)}>Editar</Button>
                                 </td>
                             </tr>
                         ))}
@@ -190,7 +193,9 @@ function Publicacion(){
                                                 id= "titulo"
                                                 name = "titulo"
                                                 placeholder="Ingresar titulo de la publicación"
+                                                defaultValue = {publiEdit.titulo}
                                                 onChange = {onChange}
+                                                required
                                             />
                                         </Col>
                                     </FormGroup>
@@ -202,7 +207,9 @@ function Publicacion(){
                                                 id= "autores"
                                                 name = "autores"
                                                 placeholder="Ingresar autores"
+                                                defaultValue = {publiEdit.autores}
                                                 onChange = {onChange}
+                                                required
                                             />
                                         </Col>
                                     </FormGroup>
@@ -214,7 +221,9 @@ function Publicacion(){
                                                 id= "revista"
                                                 name = "revista"
                                                 placeholder="Ingresar revista"
-                                                onChange = {onChange}                     
+                                                defaultValue = {publiEdit.revista}
+                                                onChange = {onChange}
+                                                required                     
                                             />
                                         </Col>
                                     </FormGroup>
@@ -226,7 +235,9 @@ function Publicacion(){
                                                 id= "index"
                                                 name = "index"
                                                 placeholder="Ingresar indexación"
-                                                onChange = {onChange}     
+                                                defaultValue = {publiEdit.indexacion}
+                                                onChange = {onChange}
+                                                required     
                                             />
                                         </Col>
                                     </FormGroup>
@@ -238,15 +249,25 @@ function Publicacion(){
                                             id="año"
                                             name="año"
                                             placeholder="Ingresar año"
+                                            defaultValue = {publiEdit.anio}
                                             onChange={onChange}
                                             required
                                         />
                                         </Col>
                                     </FormGroup>
 
-
-
-
+                                    <FormGroup check inline>
+                                        <Col sm={9}>
+                                        <Input
+                                            type="checkbox"
+                                            id="autoresEx"
+                                            name="autoresEx"
+                                            onChange={onChange}
+                                            defaultValue={publiEdit.autoresEx}
+                                        />
+                                        </Col>
+                                        <Label check>¿Hay autores extranjeros?</Label>
+                                    </FormGroup>
 
                                     <FormGroup row>
                                         <Label sm={2}>clasificacion</Label>
@@ -255,7 +276,9 @@ function Publicacion(){
                                                 id= "clasificacion"
                                                 name = "clasificacion"
                                                 placeholder="Ingresar clasificacion"
+                                                defaultValue = {publiEdit.clasificacion}
                                                 onChange = {onChange}
+                                                required
                                             />
                                         </Col>
                                     </FormGroup>
@@ -267,7 +290,9 @@ function Publicacion(){
                                                 id= "disciplina"
                                                 name = "disciplina"
                                                 placeholder="Ingresar disciplina"
+                                                defaultValue = {publiEdit.disciplina}
                                                 onChange = {onChange}
+                                                required
                                             />
                                         </Col>
                                     </FormGroup>
@@ -283,7 +308,7 @@ function Publicacion(){
                             </ModalBody>
 
                             <ModalFooter>
-                                <Button color="danger" onClick={()=>handleShow(false,"editar",0)}>cancelar</Button>
+                                <Button color="danger" onClick={()=>handleShow(false,"editar",0,initialState)}>cancelar</Button>
                                 
                             </ModalFooter>
 
