@@ -117,7 +117,7 @@ router.post("/form/update/pub", async (req, res) => {
 }
 
 
-const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
+const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina, publicacionId } = body;
 
 
 // publicacion_id int not null AUTO_INCREMENT primary key,
@@ -143,9 +143,10 @@ const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio,
       indexacion = '${indexacion}',
       anio = '${anio}',
       clasificacion = '${clasificacion}',
+      issn_doi = '${issnDoi}',
       disciplina = '${disciplina}'
       WHERE
-      issn_doi = ${issnDoi};`
+      publicacion_id = ${publicacionId};`
     );
     error = false;
 
