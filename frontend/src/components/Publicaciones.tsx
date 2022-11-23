@@ -101,7 +101,18 @@ function Publicacion(){
 
         fetch("http://localhost:5000/form/update/pub", {
             method: 'POST',
-            body: JSON.stringify(data), 
+            body: JSON.stringify({
+                publicacionId: data.publicacion_id,
+                autores: data.autores,
+                titulo: data.titulo,
+                revista: data.revista,
+                indexacion: data.indexacion,
+                autoresExtranjeros: data.autores_extranjeros,
+                issnDoi: data.issn_doi,
+                anio: data.anio,
+                clasificacion: data.clasificacion,
+                disciplina: data.disciplina,
+            }), 
             headers:{
               'Content-Type': 'application/json'
             }
