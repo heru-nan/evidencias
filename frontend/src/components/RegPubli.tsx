@@ -17,6 +17,7 @@ function RegPubli() {
 
   function formularioCallback() {
     alert("subido correctamente");
+    console.log("test2")
     console.log(values);
 
     fetch("http://localhost:5000/api/form", {

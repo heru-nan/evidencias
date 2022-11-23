@@ -57,12 +57,11 @@ function Publicacion(){
 
         console.log("aquiiii")
         console.log(publiEdit)
-        //handleEdit(publiEdit) //editar fetch??
+        handleEdit(publiEdit) //editar fetch??
         alert("ediatado correctamente")
         
         //por docker:docker ps id-- stop, rm, docker compose down --volumes
     }
-
 
     const {onChange,onSubmit,values} = UseForm(formularioCallback,initialState)
 
@@ -89,11 +88,16 @@ function Publicacion(){
             setShowEdit(d)
             setTargetId(idtarget)
             setPubliEdit(datos)
+            console.log("archhivos")
+            console.log(datos)
         }
             
     }
 
     const handleEdit = (data:any) =>{
+
+        console.log("se enviaXXXXXXXXX")
+        console.log(data)
 
         fetch("http://localhost:5000/form/update/pub", {
             method: 'POST',
