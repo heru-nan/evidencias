@@ -145,7 +145,7 @@ const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio,
       clasificacion = '${clasificacion}',
       disciplina = '${disciplina}'
       WHERE
-      publicacion_id = ${issnDoi};`
+      issn_doi = ${issnDoi};`
     );
     error = false;
 
