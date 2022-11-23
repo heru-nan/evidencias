@@ -14,7 +14,7 @@ type dataPublicacion = {
     citaciones: number,
     clasificacion: string,
     disciplina: string
-}
+} | any
 
 const dataExample: dataPublicacion[] = [
 
@@ -55,9 +55,10 @@ function Publicacion(){
 
     async function formularioCallback(){
 
-        console.log("aquiiii")
-        console.log(publiEdit)
-        handleEdit(publiEdit) //editar fetch??
+        //console.log("aquiiii")
+        //console.log(publiEdit)
+        handleEdit(publiEdit,values) //editar fetch??
+        //console.log(values)
         alert("ediatado correctamente")
         
         //por docker:docker ps id-- stop, rm, docker compose down --volumes
@@ -73,6 +74,7 @@ function Publicacion(){
 
     const [publiEdit,setPubliEdit] = React.useState(initialState)
 
+    const [autores, setAutores] = React.useState("")
 
     useEffect(()=>{
         fetch("http://localhost:5000/api/form")
@@ -80,6 +82,7 @@ function Publicacion(){
         .then(resPub => {
             setPublicaciones(resPub.data)
             console.log(resPub.data)
+            setAutores(resPub.data[0].autores)
         })
     },[])
 
@@ -94,13 +97,14 @@ function Publicacion(){
             
     }
 
-    const handleEdit = (data:any) =>{
+    const handleEdit = (data:any,changedData:any) =>{
 
-        console.log("se enviaXXXXXXXXX")
+        console.log("previo ->>>>>")
         console.log(data)
-        console.log("ddddd")
+        console.log("lo cambiado ->>>>>")
+        console.log(changedData)
 
-        fetch("http://localhost:5000/form/update/pub", {
+        fetch("http://localhost:5000/api/form/update/pub", {
             method: 'POST',
             body: JSON.stringify({
                 publicacionId: data.publicacion_id,
@@ -119,9 +123,7 @@ function Publicacion(){
                 "Content-Type": "application/json",
               },
           }).then(res => res.json())
-          .then(res => console.log(res.json()))
-          .catch(error => console.error('Error:', error))
-          .then(response => console.log('Success:', response));
+          .then(res => console.log("RES",res))
     }
 
 
@@ -202,7 +204,6 @@ function Publicacion(){
 
                                 <Form onSubmit={onSubmit}>
 
-                                
 
                                     <FormGroup row>
                                         <Label sm={2}>Titulo</Label>
@@ -225,8 +226,8 @@ function Publicacion(){
                                                 id= "autores"
                                                 name = "autores"
                                                 placeholder="Ingresar autores"
-                                                defaultValue = {publiEdit.autores}
-                                                onChange = {onChange}
+                                                value = {autores}
+                                                onChange = {e => setAutores(e.target.value)}
                                                 required
                                             />
                                         </Col>

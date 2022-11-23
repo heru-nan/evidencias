@@ -118,7 +118,7 @@ router.post("/form/update/pub", async (req, res) => {
 
 
 const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina, publicacionId } = body;
-
+console.log(autores, autoresExtranjeros)
 
 // publicacion_id int not null AUTO_INCREMENT primary key,
 // issn_doi varchar(100) not null,
@@ -136,7 +136,7 @@ const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio,
     const resInsertPub = await query(
       `UPDATE publicacion
       SET
-      titulo = ${titulo},
+      titulo = '${titulo}',
       autores = '${autores}',
       revista = '${revista}',
       autores_extranjeros = '${autoresExtranjeros}',
@@ -153,6 +153,7 @@ const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio,
     console.log(resInsertPub);
   } catch (error) {
     console.log(error);
+    console.log("fallo aqui")
     return res.json({
       data: [],
       error,
