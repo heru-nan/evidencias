@@ -98,6 +98,7 @@ function Publicacion(){
 
         console.log("se enviaXXXXXXXXX")
         console.log(data)
+        console.log("ddddd")
 
         fetch("http://localhost:5000/form/update/pub", {
             method: 'POST',
@@ -113,10 +114,12 @@ function Publicacion(){
                 clasificacion: data.clasificacion,
                 disciplina: data.disciplina,
             }), 
-            headers:{
-              'Content-Type': 'application/json'
-            }
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
           }).then(res => res.json())
+          .then(res => console.log(res.json()))
           .catch(error => console.error('Error:', error))
           .then(response => console.log('Success:', response));
     }
