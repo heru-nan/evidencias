@@ -3,8 +3,6 @@ import {UseForm} from "./UseForm"
 import {Table,Button,Container,Modal,ModalBody,ModalHeader,FormGroup,ModalFooter} from "reactstrap"
 import {Form,Label,Input,Col,Alert} from "reactstrap"
 
-
-
 type dataPublicacion = {
     id:number,
     titulo: string,
@@ -49,17 +47,15 @@ function Publicacion(){
         anio: "",
         autoresEx: 0,
         clasificacion: "",
-        disciplina: ""
+        disciplina: "",
+        issn_doi: ""
 
     }
 
     async function formularioCallback(){
-
-        //console.log("aquiiii")
-        //console.log(publiEdit)
-        handleEdit(publiEdit,values) //editar fetch??
-        //console.log(values)
+        handleEdit() //editar fetch??
         alert("ediatado correctamente")
+        window.location.reload();
         
         //por docker:docker ps id-- stop, rm, docker compose down --volumes
     }
@@ -74,7 +70,16 @@ function Publicacion(){
 
     const [publiEdit,setPubliEdit] = React.useState(initialState)
 
+    const [id, setID] = React.useState(0)
+    const [titulo, setTitulo] = React.useState("")
     const [autores, setAutores] = React.useState("")
+    const [revista, setRevista] = React.useState("")
+    const [indexacion, setIndexacion] = React.useState("")
+    const [anio, setAnio] = React.useState("")
+    const [autores_extranjeros,setAutores_extranjeros] = React.useState("")
+    const [clasificacion, setClasificacion] = React.useState("")
+    const [disciplina, setDisciplina] = React.useState("")
+    const [issn_doi, setIssn_doi] = React.useState("")
 
     useEffect(()=>{
         fetch("http://localhost:5000/api/form")
@@ -82,7 +87,6 @@ function Publicacion(){
         .then(resPub => {
             setPublicaciones(resPub.data)
             console.log(resPub.data)
-            setAutores(resPub.data[0].autores)
         })
     },[])
 
@@ -91,32 +95,36 @@ function Publicacion(){
             setShowEdit(d)
             setTargetId(idtarget)
             setPubliEdit(datos)
-            console.log("archhivos")
-            console.log(datos)
+
+            setID(idtarget)
+            setTitulo(datos.titulo)
+            setAutores(datos.autores)
+            setRevista(datos.revista)
+            setIndexacion(datos.indexacion)
+            setAnio(datos.anio)
+            setAutores_extranjeros(datos.autores_extranjeros)
+            setClasificacion(datos.clasificacion)
+            setDisciplina(datos.disciplina)
+            setIssn_doi(datos.issn_doi)
         }
             
     }
 
-    const handleEdit = (data:any,changedData:any) =>{
-
-        console.log("previo ->>>>>")
-        console.log(data)
-        console.log("lo cambiado ->>>>>")
-        console.log(changedData)
+    const handleEdit = () =>{
 
         fetch("http://localhost:5000/api/form/update/pub", {
             method: 'POST',
             body: JSON.stringify({
-                publicacionId: data.publicacion_id,
-                autores: data.autores,
-                titulo: data.titulo,
-                revista: data.revista,
-                indexacion: data.indexacion,
-                autoresExtranjeros: data.autores_extranjeros,
-                issnDoi: data.issn_doi,
-                anio: data.anio,
-                clasificacion: data.clasificacion,
-                disciplina: data.disciplina,
+                publicacionId: id,
+                autores: autores,
+                titulo: titulo,
+                revista: revista,
+                indexacion: indexacion,
+                autoresExtranjeros: autores_extranjeros,
+                issnDoi: issn_doi,
+                anio: anio,
+                clasificacion: clasificacion,
+                disciplina: disciplina,
             }), 
             headers: {
                 Accept: "application/json",
@@ -125,7 +133,6 @@ function Publicacion(){
           }).then(res => res.json())
           .then(res => console.log("RES",res))
     }
-
 
     return(
         <Container>
@@ -138,11 +145,11 @@ function Publicacion(){
                             </th>
 
                             <th>
-                                Titulo
+                                Autores
                             </th>
 
                             <th>
-                                Autores
+                                Titulo
                             </th>
 
                             <th>
@@ -169,6 +176,10 @@ function Publicacion(){
                                 Disciplina
                             </th>
 
+                            <th>
+                                issnDoi
+                            </th>
+
 
                         </tr>
                     </thead>
@@ -180,12 +191,15 @@ function Publicacion(){
                                 <td>{archivos.publicacion_id}</td>
                                 <td>{archivos.autores}</td>
                                 <td>{archivos.titulo}</td>
+                                
+                                
                                 <td>{archivos.revista}</td>
                                 <td>{archivos.indexacion}</td>
                                 <td>{archivos.anio}</td>
                                 <td>{archivos.autores_extranjeros}</td>
                                 <td>{archivos.clasificacion}</td>
                                 <td>{archivos.disciplina}</td>
+                                <td>{archivos.issn_doi}</td>
                                 <td>
                                     <Button color = "primary" onClick={()=>handleShow(true,"editar",archivos.publicacion_id,archivos)}>Editar</Button>
                                 </td>
@@ -206,28 +220,28 @@ function Publicacion(){
 
 
                                     <FormGroup row>
-                                        <Label sm={2}>Titulo</Label>
+                                        <Label sm={2}>autores</Label>
                                         <Col sm={9}>
                                             <Input
-                                                id= "titulo"
-                                                name = "titulo"
-                                                placeholder="Ingresar titulo de la publicación"
-                                                defaultValue = {publiEdit.titulo}
-                                                onChange = {onChange}
+                                                id= "autores"
+                                                name = "autores"
+                                                placeholder="Ingresar Autores"
+                                                value = {autores}
+                                                onChange = {e => setAutores(e.target.value)}
                                                 required
                                             />
                                         </Col>
                                     </FormGroup>
 
                                     <FormGroup row>
-                                        <Label sm={2}>Autores</Label>
+                                        <Label sm={2}>titulo</Label>
                                         <Col sm={9}>
                                             <Input
-                                                id= "autores"
-                                                name = "autores"
-                                                placeholder="Ingresar autores"
-                                                value = {autores}
-                                                onChange = {e => setAutores(e.target.value)}
+                                                id= "titulo"
+                                                name = "titulo"
+                                                placeholder="Ingresar titulo"
+                                                value = {titulo}
+                                                onChange = {e => setTitulo(e.target.value)}
                                                 required
                                             />
                                         </Col>
@@ -240,8 +254,8 @@ function Publicacion(){
                                                 id= "revista"
                                                 name = "revista"
                                                 placeholder="Ingresar revista"
-                                                defaultValue = {publiEdit.revista}
-                                                onChange = {onChange}
+                                                value = {revista}
+                                                onChange = {e => setRevista(e.target.value)}
                                                 required                     
                                             />
                                         </Col>
@@ -254,8 +268,8 @@ function Publicacion(){
                                                 id= "index"
                                                 name = "index"
                                                 placeholder="Ingresar indexación"
-                                                defaultValue = {publiEdit.indexacion}
-                                                onChange = {onChange}
+                                                value = {indexacion}
+                                                onChange = {e => setIndexacion(e.target.value)}
                                                 required     
                                             />
                                         </Col>
@@ -268,8 +282,8 @@ function Publicacion(){
                                             id="año"
                                             name="año"
                                             placeholder="Ingresar año"
-                                            defaultValue = {publiEdit.anio}
-                                            onChange={onChange}
+                                            value = {anio}
+                                            onChange = {e => setAnio(e.target.value)}
                                             required
                                         />
                                         </Col>
@@ -281,8 +295,8 @@ function Publicacion(){
                                             type="checkbox"
                                             id="autoresEx"
                                             name="autoresEx"
-                                            onChange={onChange}
-                                            defaultValue={publiEdit.autoresEx}
+                                            value={autores_extranjeros}
+                                            onChange = {e => setAutores_extranjeros(e.target.value)}
                                         />
                                         </Col>
                                         <Label check>¿Hay autores extranjeros?</Label>
@@ -295,8 +309,8 @@ function Publicacion(){
                                                 id= "clasificacion"
                                                 name = "clasificacion"
                                                 placeholder="Ingresar clasificacion"
-                                                defaultValue = {publiEdit.clasificacion}
-                                                onChange = {onChange}
+                                                value = {clasificacion}
+                                                onChange = {e => setClasificacion(e.target.value)}
                                                 required
                                             />
                                         </Col>
@@ -309,8 +323,22 @@ function Publicacion(){
                                                 id= "disciplina"
                                                 name = "disciplina"
                                                 placeholder="Ingresar disciplina"
-                                                defaultValue = {publiEdit.disciplina}
-                                                onChange = {onChange}
+                                                value = {disciplina}
+                                                onChange = {e => setDisciplina(e.target.value)}
+                                                required
+                                            />
+                                        </Col>
+                                    </FormGroup>
+
+                                    <FormGroup row>
+                                        <Label sm={2}>Issn Doi</Label>
+                                        <Col sm={9}>
+                                            <Input
+                                                id= "issn_doi"
+                                                name = "issn_doi"
+                                                placeholder="Ingresar issn_doi"
+                                                value = {issn_doi}
+                                                onChange = {e => setIssn_doi(e.target.value)}
                                                 required
                                             />
                                         </Col>
@@ -332,10 +360,6 @@ function Publicacion(){
                             </ModalFooter>
 
                         </Modal>
-
-            
-
-
 
                     </tbody>
                 </Table>

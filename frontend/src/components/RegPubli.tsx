@@ -16,9 +16,6 @@ function RegPubli() {
   };
 
   function formularioCallback() {
-    alert("subido correctamente");
-    console.log("test2")
-    console.log(values);
 
     fetch("http://localhost:5000/api/form", {
       method: "POST",
@@ -41,6 +38,8 @@ function RegPubli() {
       .then((res) => res.json)
       .then((res) => console.log(res));
 
+      alert("subido correctamente")
+      window.location.reload();
     //if de no refrescar si esta mal todo xd
     // aqui va lo del mandar a backend y revisar que todo este bien??
   }
