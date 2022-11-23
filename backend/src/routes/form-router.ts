@@ -32,12 +32,13 @@ router.post("/form", async (req, res) => {
 
   const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
 
-  
+
+
   try {
     const resInsertPub = await query(
       `insert into publicacion
       (issn_doi, titulo, autores, revista, autores_extranjeros, indexacion, anio,  clasificacion, disciplina)
-      values ('${issnDoi}', '${titulo}', '${autores}', '${revista}','${autoresExtranjeros ? 1 : 0}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
+      values ('${issnDoi}', '${autores}', '${titulo}', '${revista}','${autoresExtranjeros ? 1 : 0}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
     );
     error = false;
 
@@ -114,62 +115,50 @@ router.post("/form/update/pub", async (req, res) => {
     res.statusCode = 400
     res.json({ data: [], error: "No existen argumentos" });
 }
-  // id_publicacion int(6) not null,
-  // nombre_publicacion varchar(100),
-  // anio year,
-  // revista varchar(100),
-  // indexacion varchar(100),
-  // citaciones varchar(300),
-  // clasificacion varchar(100),
-  // disciplina int(6),
-  // primary key(`id_publicacion`),
 
-  const {
-    id_publicacion,
-    nombre_publicacion,
-    anio,
-    revista,
-    indexacion,
-    citaciones,
-    clasificacion,
-    disciplina,
-  } = body;
 
-  console.log({
-    id_publicacion,
-    nombre_publicacion,
-    anio,
-    revista,
-    indexacion,
-    citaciones,
-    clasificacion,
-    disciplina,
-  });
+const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
+
+
+// publicacion_id int not null AUTO_INCREMENT primary key,
+// issn_doi varchar(100) not null,
+//   titulo varchar(100),
+//   autores varchar(100),
+//   revista varchar(100),
+//   autores_extranjeros TINYINT(1),
+//   indexacion varchar(100), 
+//   anio varchar(100),
+//   citaciones varchar(300),
+//   clasificacion varchar(100),
+//   disciplina varchar(100)
 
   try {
     const resInsertPub = await query(
       `UPDATE publicacion
       SET
-      nombre_publicacion = '${nombre_publicacion}',
-      anio = ${anio + 0},
+      titulo = ${titulo},
+      autores = '${autores}',
       revista = '${revista}',
+      autores_extranjeros = '${autoresExtranjeros}',
       indexacion = '${indexacion}',
-      citaciones = '${citaciones}',
-      clasificacion = '${clasificacion}'
+      anio = '${anio}',
+      clasificacion = '${clasificacion}',
+      disciplina = '${disciplina}'
       WHERE
-      id_publicacion = ${id_publicacion};`
+      publicacion_id = ${issnDoi};`
     );
     error = false;
 
     console.log(resInsertPub);
   } catch (error) {
     console.log(error);
+    return res.json({
+      data: [],
+      error,
+    });
   }
 
-  return res.json({
-    data: [],
-    error,
-  });
+  
 });
 
 router.post("/form/update/pro", async (req, res) => {
