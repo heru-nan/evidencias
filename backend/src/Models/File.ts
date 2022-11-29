@@ -1,4 +1,4 @@
-import { DataTypes} from "sequelize";
+import { DataTypes } from "sequelize";
 import sequelize from "../sequelize";
 // create table archivo(
 //     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -9,31 +9,34 @@ import sequelize from "../sequelize";
 //     foreign key(id_fk_pub) references publicacion(`publicacion_id`)
 // )
 
-const File = sequelize.define('Files', {
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    autoIncrement: true,
+const File = sequelize.define(
+  "File",
+  {
+    // Model attributes are defined here
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    idFkPub: {
+      type: DataTypes.STRING,
+      field: "id_fk_pub",
+    },
+    nombre: {
+      type: DataTypes.STRING,
+    },
+    ruta: {
+      type: DataTypes.STRING,
+    },
   },
-  idFkPub: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    field: "id_fk_pub"
-  },
-  nombre: {
-    type: DataTypes.STRING,
-  },
-  ruta: {
-    type: DataTypes.STRING,
-  },
-}, {
+  {
     tableName: "archivo",
     timestamps: false,
     createdAt: false,
     updatedAt: false,
-  // Other model options go here
-});
+    // Other model options go here
+  }
+);
 
-// `sequelize.define` also returns the model
-console.log(File === sequelize.models.File); // true
+export default File;
