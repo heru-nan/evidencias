@@ -5,30 +5,37 @@ import Publication from "../Models/Publication"
 const router: express.Router = express.Router();
 
 router.get("/pubs", async (_, res) => {
-  const resPublicacion = await query(`select * from publicacion;`);
+  // const resPublicacion = await query(`select * from publicacion;`);
+
+  const publications = await Publication.findAll();
 
   res.json({
-    data: resPublicacion,
+    data: publications,
     error: null,
   });
 });
 
 router.post("/pubs", async (req, res) => {
   const { body } = req;
-  let error = true;
   if (!body){
     res.statusCode = 400;
     res.json({ data: [], error: "No existen argumentos" });
   }
 
-  const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
-
+  // const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
   const publication = Publication.build(body)
 
   try {
     await publication.save()
+    res.json({
+      data: "Correctamente subidos los cambios",
+      error: false,
+    });
   } catch (error) {
-    console.log(error)
+    res.json({
+      data: "Error al subir los cambios",
+      error,
+    });
   }
   // try {
   //   const resInsertPub = await query(
@@ -42,67 +49,8 @@ router.post("/pubs", async (req, res) => {
   // } catch (error) {
   //   console.log(error);
   // }
-
-  res.json({
-    data: error ? "Error al subir los cambios": "Correctamente subidos los cambios",
-    error,
-  });
 });
 
-router.post("/form/pro", async (req, res) => {
-  const { body } = req;
-  let error = true;
-  if (!body)
-  {
-    res.statusCode = 400
-    res.json({ data: [], error: "No existen argumentos" })
-  }
-  const {
-    nombre,
-    ffinanciamiento,
-    concurso,
-    codigo,
-    añoAdjudicacion,
-    fechaInicio,
-    fechaTermino,
-    montoTotal,
-    palabrasClaves,
-    objetivos,
-  } = body;
-
-  console.log({
-    nombre,
-    ffinanciamiento,
-    concurso,
-    codigo,
-    añoAdjudicacion,
-    fechaInicio,
-    fechaTermino,
-    montoTotal,
-    palabrasClaves,
-    objetivos,
-  });
-
-  try {
-    const resInsertPub = await query(
-      `insert into proyecto
-      (palabras_clave, anio, codigo, nombre, objetivo, fuente_financiamiento, concurso, fecha_inicio, fecha_termino, presupuesto)
-      values ('${palabrasClaves}', ${añoAdjudicacion}, '${codigo}', '${nombre}',
-      '${objetivos}', '${ffinanciamiento}','${concurso}', '${fechaInicio}'
-      ,'${fechaTermino}', '${montoTotal}');`
-    );
-    error = false;
-
-    console.log(resInsertPub.affectedRows);
-  } catch (error) {
-    console.log(error);
-  }
-
-  res.json({
-    data: [],
-    error,
-  });
-});
 
 router.post("/form/update/pub", async (req, res) => {
   const { body } = req;
