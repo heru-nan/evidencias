@@ -18,7 +18,8 @@ const File = sequelize.define('Files', {
   },
   idFkPub: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    field: "id_fk_pub"
   },
   nombre: {
     type: DataTypes.STRING,
@@ -27,7 +28,10 @@ const File = sequelize.define('Files', {
     type: DataTypes.STRING,
   },
 }, {
-    tableName: "publicacion"
+    tableName: "archivo",
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
   // Other model options go here
 });
 
