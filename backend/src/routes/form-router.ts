@@ -1,9 +1,10 @@
 import express from "express";
 import query from '../db';
+import Publication from "../Models/Publication"
 
 const router: express.Router = express.Router();
 
-router.get("/form", async (_, res) => {
+router.get("/pubs", async (_, res) => {
   const resPublicacion = await query(`select * from publicacion;`);
 
   res.json({
@@ -12,40 +13,35 @@ router.get("/form", async (_, res) => {
   });
 });
 
-router.get("/form/pro", async (_, res) => {
-  const resPublicacion = await query(`select * from proyecto;`);
-
-  res.json({
-    data: resPublicacion,
-    error: null,
-  });
-});
-
-router.post("/form", async (req, res) => {
+router.post("/pubs", async (req, res) => {
   const { body } = req;
   let error = true;
   if (!body){
     res.statusCode = 400;
     res.json({ data: [], error: "No existen argumentos" });
-
   }
 
   const { autores, titulo, revista, indexacion, autoresExtranjeros, issnDoi, anio, clasificacion, disciplina } = body;
 
-
+  const publication = Publication.build(body)
 
   try {
-    const resInsertPub = await query(
-      `insert into publicacion
-      (issn_doi, titulo, autores, revista, autores_extranjeros, indexacion, anio,  clasificacion, disciplina)
-      values ('${issnDoi}', '${titulo}', '${autores}', '${revista}','${autoresExtranjeros ? 1 : 0}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
-    );
-    error = false;
-
-    console.log(resInsertPub.affectedRows);
+    await publication.save()
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
+  // try {
+  //   const resInsertPub = await query(
+  //     `insert into publicacion
+  //     (issn_doi, titulo, autores, revista, autores_extranjeros, indexacion, anio,  clasificacion, disciplina)
+  //     values ('${issnDoi}', '${titulo}', '${autores}', '${revista}','${autoresExtranjeros ? 1 : 0}', '${indexacion}', '${anio}','${clasificacion}','${disciplina}');`
+  //   );
+  //   error = false;
+
+  //   console.log(resInsertPub.affectedRows);
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
   res.json({
     data: error ? "Error al subir los cambios": "Correctamente subidos los cambios",
