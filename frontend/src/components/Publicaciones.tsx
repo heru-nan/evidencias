@@ -82,7 +82,7 @@ function Publicacion(){
     const [issn_doi, setIssn_doi] = React.useState("")
 
     useEffect(()=>{
-        fetch("http://localhost:5000/api/form")
+        fetch("http://localhost:5000/api/pubs")
         .then(res => res.json())
         .then(resPub => {
             setPublicaciones(resPub.data)
@@ -105,22 +105,22 @@ function Publicacion(){
             setAutores_extranjeros(datos.autores_extranjeros)
             setClasificacion(datos.clasificacion)
             setDisciplina(datos.disciplina)
-            setIssn_doi(datos.issn_doi)
+            setIssn_doi(datos.issnDoi)
         }
             
     }
 
     const handleEdit = () =>{
 
-        fetch("http://localhost:5000/api/form/update/pub", {
+        fetch("http://localhost:5000/api/pubs/update", {
             method: 'POST',
             body: JSON.stringify({
-                publicacionId: id,
+                id: id,
                 autores: autores,
                 titulo: titulo,
                 revista: revista,
                 indexacion: indexacion,
-                autoresExtranjeros: autores_extranjeros,
+                autores_extranjeros: autores_extranjeros,
                 issnDoi: issn_doi,
                 anio: anio,
                 clasificacion: clasificacion,
@@ -141,7 +141,7 @@ function Publicacion(){
                     <thead>
                         <tr>
                             <th>
-                                ID
+                                ID xd
                             </th>
 
                             <th>
@@ -188,20 +188,19 @@ function Publicacion(){
 
                         {publicaciones.map((archivos)=>(
                             <tr>
-                                <td>{archivos.publicacion_id}</td>
+                                <td>{archivos.id}</td>
                                 <td>{archivos.autores}</td>
                                 <td>{archivos.titulo}</td>
-                                
                                 
                                 <td>{archivos.revista}</td>
                                 <td>{archivos.indexacion}</td>
                                 <td>{archivos.anio}</td>
-                                <td>{archivos.autores_extranjeros}</td>
+                                <td>{archivos.autoresExtranjeros}</td>
                                 <td>{archivos.clasificacion}</td>
                                 <td>{archivos.disciplina}</td>
-                                <td>{archivos.issn_doi}</td>
+                                <td>{archivos.issnDoi}</td>
                                 <td>
-                                    <Button color = "primary" onClick={()=>handleShow(true,"editar",archivos.publicacion_id,archivos)}>Editar</Button>
+                                    <Button color = "primary" onClick={()=>handleShow(true,"editar",archivos.id,archivos)}>Editar</Button>
                                 </td>
                             </tr>
                         ))}

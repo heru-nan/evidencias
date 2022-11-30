@@ -9,15 +9,15 @@ function RegPubli() {
     revista: "",
     indexacion: "",
     identificador: 0,
-    año: "",
+    anio: "",
     disciplina: "",
     clasificacion: "",
-    autoresEx: "off",
+    autores_extranjeros: "off",
   };
 
   function formularioCallback() {
 
-    fetch("http://localhost:5000/api/form", {
+    fetch("http://localhost:5000/api/pubs", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -28,7 +28,7 @@ function RegPubli() {
         titulo: values.titulo,
         revista: values.revista,
         indexacion: values.indexacion,
-        autoresExtranjeros: values.autoresEx,
+        autores_extranjeros: values.autores_extranjeros,
         issnDoi: values.identificador,
         anio: values.año,
         clasificacion: values.clasificacion,
@@ -39,7 +39,7 @@ function RegPubli() {
       .then((res) => console.log(res));
 
       alert("subido correctamente")
-      window.location.reload();
+      //window.location.reload();
     //if de no refrescar si esta mal todo xd
     // aqui va lo del mandar a backend y revisar que todo este bien??
   }
@@ -90,10 +90,10 @@ function RegPubli() {
         <Col sm={9}>
           <Input
             type="checkbox"
-            id="autoresEx"
-            name="autoresEx"
+            id="autores_extranjeros"
+            name="autores_extranjeros"
             onChange={onChange}
-            value={values.autoresEx}
+            value={values.autores_extranjeros}
           />
         </Col>
         <Label check>¿Hay autores extranjeros?</Label>
