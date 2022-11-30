@@ -3,6 +3,8 @@ import {UseForm} from "./UseForm"
 import {Table,Button,Container,Modal,ModalBody,ModalHeader,FormGroup,ModalFooter} from "reactstrap"
 import {Form,Label,Input,Col,Alert} from "reactstrap"
 
+//
+
 type dataPublicacion = {
     id:number,
     titulo: string,
