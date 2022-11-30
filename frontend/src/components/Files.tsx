@@ -6,14 +6,13 @@ type dataFiles = {
     id: number,
     nombre: string,
     nombreArchivo: string,
-    idPubli: number,
-    idProy:number
+    idPubli: number
 }
 
 const dataExample: dataFiles[] =  [
-    {id:1, nombre: "reg.pdf",nombreArchivo: "registro de ejemplo 1",idPubli: 1,idProy:0},
-    {id:2, nombre: "planilla2021.exel",nombreArchivo: "notas alumnos",idPubli: 2,idProy:0},
-    {id:3, nombre: "presentacion final.pptx",nombreArchivo: "presentacion publicacion",idPubli: 5,idProy:0},
+    {id:1, nombre: "reg.pdf",nombreArchivo: "registro de ejemplo 1",idPubli: 1},
+    {id:2, nombre: "planilla2021.exel",nombreArchivo: "notas alumnos",idPubli: 2},
+    {id:3, nombre: "presentacion final.pptx",nombreArchivo: "presentacion publicacion",idPubli: 5},
 ]
 
 type dataPubli = {
@@ -98,9 +97,7 @@ function Files(){
                             <tr>
                                 <td>{archivos.id}</td>
                                 <td>{archivos.nombre}</td>
-                                <td>{archivos.idFkPub}</td>
-
-                    
+                                <td>{archivos.idFkPub}</td>                     
                                 <td>
                                     <Button color = "primary" onClick={()=>handleShow(true,"asociar")}>Asociar</Button>{"  "}
                                     <Button color = "primary">Descargar</Button>{"  "}
