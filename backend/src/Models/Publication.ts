@@ -1,4 +1,4 @@
-import {DataTypes} from "sequelize";
+import { DataTypes } from "sequelize";
 import sequelize from "../sequelize";
 
 // create table publicacion(
@@ -8,62 +8,65 @@ import sequelize from "../sequelize";
 //     autores varchar(100),
 //     revista varchar(100),
 //     autores_extranjeros TINYINT(1),
-//     indexacion varchar(100), 
+//     indexacion varchar(100),
 //     anio varchar(100),
 //     citaciones varchar(300),
 //     clasificacion varchar(100),
 //     disciplina varchar(100)
 // );
 
-const Publication = sequelize.define('Publication', {
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: "publicacion_id",
-    autoIncrement: true,
-    primaryKey: true,
+const Publication = sequelize.define(
+  "Publication",
+  {
+    // Model attributes are defined here
+    id: {
+      type: DataTypes.INTEGER,
+      field: "publicacion_id",
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    issnDoi: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      field: "issn_doi",
+    },
+    titulo: {
+      type: DataTypes.STRING,
+    },
+    autores: {
+      type: DataTypes.STRING,
+    },
+    revista: {
+      type: DataTypes.STRING,
+    },
+    autoresExtranjeros: {
+      type: DataTypes.BOOLEAN,
+      field: "autores_extranjeros",
+    },
+    indexacion: {
+      type: DataTypes.STRING,
+    },
+    anio: {
+      type: DataTypes.STRING,
+    },
+    citaciones: {
+      type: DataTypes.STRING,
+    },
+    clasificacion: {
+      type: DataTypes.STRING,
+    },
+    disciplina: {
+      type: DataTypes.STRING,
+    },
   },
-  issnDoi: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    field: "issn_doi"
-  },
-  titulo: {
-    type: DataTypes.STRING,
-  },
-  autores: {
-    type: DataTypes.STRING,
-  },
-  revista: {
-    type: DataTypes.STRING,
-  },
-  autoresExtranjeros: {
-    type: DataTypes.BOOLEAN,
-    field: "autores_extranjeros"
-  },
-  indexacion: {
-    type: DataTypes.STRING,
-  },
-  anio: {
-    type: DataTypes.STRING,
-  },
-  citaciones: {
-    type: DataTypes.STRING,
-  },
-  clasificacion: {
-    type: DataTypes.STRING,
-  },
-  disciplina: {
-    type: DataTypes.STRING,
-  },
-}, {
+  {
     tableName: "publicacion",
     timestamps: false,
     createdAt: false,
     updatedAt: false,
-  // Other model options go here
-});
+    // Other model options go here
+  }
+);
 
 export default Publication;
 // `sequelize.define` also returns the model
