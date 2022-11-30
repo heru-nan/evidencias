@@ -11,7 +11,7 @@ type dataFiles = {
 
 const dataExample: dataFiles[] =  [
     {id:1, nombre: "reg.pdf",nombreArchivo: "registro de ejemplo 1",idPubli: 1},
-    {id:2, nombre: "planilla2021.exel",nombreArchivo: "notas alumnos",idPubli: 2},
+    {id:2, nombre: "planilaaaala2021.exel",nombreArchivo: "notas alumnos",idPubli: 2},
     {id:3, nombre: "presentacion final.pptx",nombreArchivo: "presentacion publicacion",idPubli: 5},
 ]
 

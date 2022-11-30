@@ -26,19 +26,6 @@ type dataPublicacion =
   | any;
 //
 
-type dataPublicacion =
-  | {
-      id: number;
-      titulo: string;
-      revista: string;
-      indexacion: string;
-      año: string;
-      citaciones: number;
-      clasificacion: string;
-      disciplina: string;
-    }
-  | any;
-
 const dataExample: dataPublicacion[] = [
   {
     id: 1,

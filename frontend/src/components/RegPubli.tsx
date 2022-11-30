@@ -41,6 +41,7 @@ function RegPubli() {
       }),
     })
       .then((res) => res.json)
+      .then((res) => console.log("kkkkkkk"))
       .then((res) => console.log(res));
 
     alert("subido correctamente");
