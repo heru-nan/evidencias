@@ -18,11 +18,10 @@ function RegPubli() {
     anio: "",
     disciplina: "",
     clasificacion: "",
-    autores_extranjeros: "off",
+    autores_extranjeros: false,
   };
 
   function formularioCallback() {
-
     fetch("http://localhost:5000/api/pubs", {
       method: "POST",
       headers: {
@@ -34,7 +33,7 @@ function RegPubli() {
         titulo: values.titulo,
         revista: values.revista,
         indexacion: values.indexacion,
-        autores_extranjeros: values.autores_extranjeros,
+        autoresExtranjeros: values.autores_extranjeros,
         issnDoi: values.identificador,
         anio: values.año,
         clasificacion: values.clasificacion,
@@ -44,8 +43,8 @@ function RegPubli() {
       .then((res) => res.json)
       .then((res) => console.log(res));
 
-      alert("subido correctamente")
-      //window.location.reload();
+    alert("subido correctamente");
+    //window.location.reload();
     //if de no refrescar si esta mal todo xd
     // aqui va lo del mandar a backend y revisar que todo este bien??
   }
