@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React,{useState,useEffect} from "react"
 import {Table,Button,Container,Modal,ModalBody,ModalHeader,FormGroup,ModalFooter} from "reactstrap"
 
 
@@ -7,7 +7,7 @@ type dataFiles = {
     nombre: string,
     nombreArchivo: string,
     idPubli: number,
-    idProy: number
+    idProy:number
 }
 
 const dataExample: dataFiles[] =  [
@@ -47,12 +47,26 @@ function Files(){
 
     const [showProyec,setShowProyec] = React.useState(false)
 
+    const [files,setFiles] = React.useState<dataFiles[] | any[]>()
+
     const handleShow = (d:boolean,id:string) => {
         if(id === "asociar") setShowAsoc(d)
         else if(id === "eliminar") setShowDelete(d)
         else if(id === "publi") setShowPubli(d)
         else if(id === "proye") setShowProyec(d)
     }
+
+
+    useEffect(()=>{
+        fetch("http://localhost:5000/api/files")
+        .then(res => res.json())
+        .then(resPub => {
+            setFiles(resPub.data)
+            console.log(resPub.data)
+            console.log("xxxxxxxxxxxx")
+            console.log(files)
+        })
+    },[])
 
         return(
             <Container>
@@ -69,15 +83,7 @@ function Files(){
                             </th>
 
                             <th>
-                                nombreArchivo
-                            </th>
-
-                            <th>
                                 idPubli
-                            </th>
-
-                            <th>
-                                idProy
                             </th>
 
                             <th>
@@ -88,15 +94,16 @@ function Files(){
 
                     <tbody>
 
-                        {dataExample.map((archivos)=>(
+                        {files.map((archivos)=>(
                             <tr>
                                 <td>{archivos.id}</td>
                                 <td>{archivos.nombre}</td>
-                                <td>{archivos.nombreArchivo}</td>
-                                <td>{archivos.idPubli}</td>
-                                <td>{archivos.idProy}</td>
+                                <td>{archivos.idFkPub}</td>
+
+                    
                                 <td>
                                     <Button color = "primary" onClick={()=>handleShow(true,"asociar")}>Asociar</Button>{"  "}
+                                    <Button color = "primary">Descargar</Button>{"  "}
                                     <Button color = "danger" onClick={()=>handleShow(true,"eliminar")}  >eliminar</Button>
                                 </td>
                             </tr>

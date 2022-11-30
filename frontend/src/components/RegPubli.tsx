@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { UseForm } from "./UseForm";
 import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 
+/*
+por editar: poner fecha tipo dd/mm/yy en db y front
+arreglar subida de archivos
+decidir que onda con las subidas multiples
+ */
+
 function RegPubli() {
   const initialState = {
     titulo: "",
