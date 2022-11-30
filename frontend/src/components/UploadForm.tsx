@@ -20,6 +20,7 @@ const UploadForm = () =>{
     const {onChange,onSubmit,values} = UseForm(formularioCallback,initialState)
 
 
+
     return(
         <Form onSubmit={onSubmit}>
 
@@ -35,6 +36,7 @@ const UploadForm = () =>{
                         id= "nombre"
                         name = "nombre"
                         placeholder="Ingresar nombre del archivo"
+                        required
                         onChange = {onChange}
                     />
                 </Col>
@@ -47,7 +49,9 @@ const UploadForm = () =>{
                         id= "archivo"
                         name = "archivo"
                         type="file"
+                        multiple
                         onChange = {onChange}
+                        required
                     />
                 </Col>
             </FormGroup>
