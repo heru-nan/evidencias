@@ -22,6 +22,7 @@ type dataPublicacion =
       citaciones: number;
       clasificacion: string;
       disciplina: string;
+      autoresExtranjeros: boolean;
     }
   | any;
 //
@@ -58,7 +59,7 @@ function Publicacion() {
     revista: "",
     indexacion: "",
     anio: "",
-    autoresEx: 0,
+    autoresExtranjeros: 0,
     clasificacion: "",
     disciplina: "",
     issn_doi: "",

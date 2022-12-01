@@ -2,11 +2,18 @@ import React, {useState} from "react"
 import {UseForm} from "./UseForm"
 import {Button,Form,FormGroup,Label,Input,Col,Alert} from "reactstrap"
 
+type archivo = {
+    nombre: string,
+    idPub: number,
+    archivo: File
+}
+
 
 const UploadForm = () =>{
 
     const initialState = {
         nombre: "",
+        id_fk_pub: 0,
         archivo: File
     }
 
@@ -18,6 +25,8 @@ const UploadForm = () =>{
     }
 
     const {onChange,onSubmit,values} = UseForm(formularioCallback,initialState)
+
+    //const [archivos,setArchivos] = React.useState<archivo[] | []>([])
 
 
 

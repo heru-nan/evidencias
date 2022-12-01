@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import {Table,Button,Container,Modal,ModalBody,ModalHeader,FormGroup,ModalFooter} from "reactstrap"
+import {Table,Button,Container,Modal,ModalBody,ModalHeader,FormGroup,ModalFooter,Form,Label,Col,Input} from "reactstrap"
 
 
 type dataFiles = {
@@ -46,26 +46,68 @@ function Files(){
 
     const [showProyec,setShowProyec] = React.useState(false)
 
-    const [files,setFiles] = React.useState<dataFiles[] | any[]>()
+    const [files,setFiles] = React.useState<dataFiles[] | any[]>([])
 
-    const handleShow = (d:boolean,id:string) => {
-        if(id === "asociar") setShowAsoc(d)
-        else if(id === "eliminar") setShowDelete(d)
-        else if(id === "publi") setShowPubli(d)
-        else if(id === "proye") setShowProyec(d)
+
+    //asoc
+    const[id,setId] = React.useState(0)
+    const[name,setName] = React.useState("")
+    const[idPub,setIdPub] = React.useState(0)
+    const[path,setPath] = React.useState("")
+    
+
+    const handleShow = (d:boolean,idnt:string,datos:any) => {
+        if(idnt === "asociar"){
+            setShowAsoc(d)
+            setId(datos.id)
+            setName(datos.nombre)
+            setIdPub(datos.idFkPub)
+            setPath(datos.ruta)
+
+        }
+
+        else if(idnt === "save"){
+            setShowAsoc(d)
+            console.log("ptecion::::::")
+            console.log(id,name,idPub,path)
+            console.log(id)
+            handleEdit()
+
+        }
+
+        else if(idnt === "eliminar") setShowDelete(d)
     }
 
 
     useEffect(()=>{
         fetch("http://localhost:5000/api/files")
         .then(res => res.json())
-        .then(resPub => {
-            setFiles(resPub.data)
-            console.log(resPub.data)
+        .then(resFile => {
+            setFiles(resFile.data)
+            console.log(resFile.data)
             console.log("xxxxxxxxxxxx")
             console.log(files)
         })
     },[])
+
+
+    const handleEdit = () => {
+        fetch("http://localhost:5000/api/files", {
+          method: "POST",
+          body: JSON.stringify({
+            id: id,
+            nombre: name,
+            idFkPub: idPub,
+            ruta: path
+          }),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => console.log("RES", res));
+      };
 
         return(
             <Container>
@@ -99,12 +141,14 @@ function Files(){
                                 <td>{archivos.nombre}</td>
                                 <td>{archivos.idFkPub}</td>                     
                                 <td>
-                                    <Button color = "primary" onClick={()=>handleShow(true,"asociar")}>Asociar</Button>{"  "}
+                                    <Button color = "primary" onClick={()=>handleShow(true,"asociar",archivos)}>Asociar</Button>{"  "}
                                     <Button color = "primary">Descargar</Button>{"  "}
-                                    <Button color = "danger" onClick={()=>handleShow(true,"eliminar")}  >eliminar</Button>
+                                    <Button color = "danger" onClick={()=>handleShow(true,"eliminar",archivos)}  >eliminar</Button>
                                 </td>
                             </tr>
                         ))}
+
+
 
                         <Modal isOpen = {showAsoc}>
                             <ModalHeader>
@@ -115,16 +159,63 @@ function Files(){
 
                             <ModalBody>
 
-                                <Button color="primary" onClick={()=>handleShow(true,"publi")} >Publicaciones</Button>{"  \n "}
-                                <Button color="primary" onClick={()=>handleShow(true,"proye")} >proyectos</Button>
+
+                                <Form>
+
+                                    <FormGroup row>
+                                        <Label sm={2}>Id</Label>
+                                        <Col sm={9}>
+                                        <Input
+                                            id="id"
+                                            name="id"
+                                            type="number"
+                                            value={id}
+                                            autoComplete = "off"
+                                            
+
+                                            />                                        
+                                        </Col>
+                                    </FormGroup>
+
+                                    <FormGroup row>
+                                        <Label sm={2}>Nombre</Label>
+                                        <Col sm={9}>
+                                        <Input
+                                            id="name"
+                                            name="name"
+                                            value={name}
+                                            required
+                                            onChange={(e) => setName(e.target.value)}
+                                            />                                        
+                                        </Col>
+                                    </FormGroup>
+
+                                    <FormGroup row>
+                                        <Label sm={2}>Id Publicacion</Label>
+                                        <Col sm={9}>
+                                        <Input
+                                            type = "number"
+                                            id="idPub"
+                                            name="idPub"
+                                            value={idPub}
+                                            required
+                                            onChange={(e) => setIdPub(e.target.valueAsNumber)}
+                                            />                                        
+                                        </Col>
+                                    </FormGroup>
+
+                                </Form>
+
 
                             </ModalBody>
 
                             <ModalFooter>
-                                <Button color="danger" onClick={()=>handleShow(false,"asociar")}>cancelar</Button>
+                                <Button color="primary" onClick={()=>handleShow(false,"save",[])}>Guardar</Button>
+                                <Button color="danger" onClick={()=>handleShow(false,"asociar",[])}>cancelar</Button>
                             </ModalFooter>
 
                         </Modal>
+
 
                         <Modal isOpen = {showDelete}>
                             <ModalHeader>
@@ -140,113 +231,11 @@ function Files(){
                             </ModalBody>
 
                             <ModalFooter>
-                                <Button color="danger" onClick={()=>handleShow(false,"eliminar")} >Cancelar</Button>
+                                <Button color="danger" onClick={()=>handleShow(false,"eliminar",[])} >Cancelar</Button>
                             </ModalFooter>
 
                         </Modal>
 
-                        <Modal isOpen = {showPubli}>
-                            <ModalHeader>
-                                <div>
-                                    <h3>Asociar a publicaciones</h3>
-                                </div>
-                            </ModalHeader>
-
-                            <ModalBody>
-
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            ID
-                                        </th>
-                                            
-                                        <th>
-                                            Titulo
-                                        </th>
-
-                                        <th>
-                                            acción
-                                        </th>
-
-                                        </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    {dataPub.map((archivos)=>(
-                                <tr>
-                                    <td>{archivos.id}</td>
-                                    <td>{archivos.titulo}</td>
-                                    <td>
-                                        <Button color = "primary">Asociar</Button>
-                                        
-                                    </td>
-                                </tr>
-                            ))}
-
-                                </tbody>
-
-                            </Table>
-
-                            </ModalBody>
-
-                            <ModalFooter>
-                                <Button color="danger" onClick={()=>handleShow(false,"publi")} >Cancelar</Button>
-                            </ModalFooter>
-
-                        </Modal>
-
-                        <Modal isOpen = {showProyec}>
-                            <ModalHeader>
-                                <div>
-                                    <h3>Asociar a proyectos</h3>
-                                </div>
-                            </ModalHeader>
-
-                            <ModalBody>
-
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            ID
-                                        </th>
-                                            
-                                        <th>
-                                            Nombre
-                                        </th>
-
-                                        <th>
-                                            acción
-                                        </th>
-
-                                        </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    {dataPro.map((archivos)=>(
-                                <tr>
-                                    <td>{archivos.id}</td>
-                                    <td>{archivos.nombre}</td>
-                                    <td>
-                                        <Button color = "primary">Asociar</Button>
-                                        
-                                    </td>
-                                </tr>
-                            ))}
-
-                                </tbody>
-
-                            </Table>
-
-                            </ModalBody>
-
-                            <ModalFooter>
-                                <Button color="danger" onClick={()=>handleShow(false,"proye")} >Cancelar</Button>
-                            </ModalFooter>
-                        </Modal>
                     </tbody>
                 </Table>
             </Container>
