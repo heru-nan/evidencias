@@ -98,6 +98,7 @@ function Publicacion() {
   const [anio, setAnio] = React.useState("");
 
   const [mes, setMes] = React.useState("");
+  
   const [autores_extranjeros, setAutores_extranjeros] = React.useState("");
   const [clasificacion, setClasificacion] = React.useState("");
   const [disciplina, setDisciplina] = React.useState("");
