@@ -19,6 +19,7 @@ type dataPublicacion =
       revista: string;
       indexacion: string;
       año: string;
+      mes: string;
       citaciones: number;
       clasificacion: string;
       disciplina: string;
@@ -59,6 +60,7 @@ function Publicacion() {
     revista: "",
     indexacion: "",
     anio: "",
+    mes: "",
     autoresExtranjeros: 0,
     clasificacion: "",
     disciplina: "",
@@ -94,6 +96,8 @@ function Publicacion() {
   const [revista, setRevista] = React.useState("");
   const [indexacion, setIndexacion] = React.useState("");
   const [anio, setAnio] = React.useState("");
+
+  const [mes, setMes] = React.useState("");
   const [autores_extranjeros, setAutores_extranjeros] = React.useState("");
   const [clasificacion, setClasificacion] = React.useState("");
   const [disciplina, setDisciplina] = React.useState("");
@@ -120,6 +124,7 @@ function Publicacion() {
       setRevista(datos.revista);
       setIndexacion(datos.indexacion);
       setAnio(datos.anio);
+      setMes(datos.mes)
       setAutores_extranjeros(datos.autores_extranjeros);
       setClasificacion(datos.clasificacion);
       setDisciplina(datos.disciplina);
@@ -139,6 +144,7 @@ function Publicacion() {
         autoresExtranjeros: autores_extranjeros,
         issnDoi: issn_doi,
         anio: anio,
+        mes: mes,
         clasificacion: clasificacion,
         disciplina: disciplina,
       }),
@@ -169,6 +175,8 @@ function Publicacion() {
 
             <th>Año</th>
 
+            <th>Mes</th>
+
             <th>Aut.Ex</th>
 
             <th>Clasificación</th>
@@ -185,10 +193,10 @@ function Publicacion() {
               <td>{archivos.id}</td>
               <td>{archivos.autores}</td>
               <td>{archivos.titulo}</td>
-
               <td>{archivos.revista}</td>
               <td>{archivos.indexacion}</td>
               <td>{archivos.anio}</td>
+
               <td>{archivos.autoresExtranjeros}</td>
               <td>{archivos.clasificacion}</td>
               <td>{archivos.disciplina}</td>
@@ -283,6 +291,58 @@ function Publicacion() {
                       required
                     />
                   </Col>
+                </FormGroup>
+
+                <FormGroup row>
+
+                  <Label sm={2}>Mes</Label>
+                    <Col sm={9}>
+                    <Input
+                      id="exampleSelect"
+                      name="select"
+                      type="select"
+                      value={mes}
+                      onChange={(e) => setMes(e.target.value)}
+                    >
+                      <option>
+                        Enero
+                      </option>
+                      <option>
+                        Febrero
+                      </option>
+                      <option>
+                        Marzo
+                      </option>
+                      <option>
+                        Abril
+                      </option>
+                      <option>
+                        Mayo
+                      </option>
+                      <option>
+                        Junio
+                      </option>
+                      <option>
+                        Julio
+                      </option>
+                      <option>
+                        Agosto
+                      </option>
+                      <option>
+                        Septiembre
+                      </option>
+                      <option>
+                        Octubre
+                      </option>
+                      <option>
+                        Noviembre
+                      </option>
+                      <option>
+                        Diciembre
+                      </option>
+                    </Input>
+                    </Col>
+
                 </FormGroup>
 
                 <FormGroup check inline>
