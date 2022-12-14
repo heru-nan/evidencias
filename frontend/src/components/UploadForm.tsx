@@ -14,7 +14,24 @@ const UploadForm = () =>{
     async function formularioCallback(){
         console.log(values)
         console.log(inputFiles)
+        const formData = new FormData()
+        formData.append("values.nombre",inputFiles)
         //hacer fetch a values.nombre e input files
+        /*
+        fetch("http://localhost:5000/api/files", {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+          })
+          .catch(error => {
+            console.error(error)
+          })
+        }
+        */
+
         alert("subido correctamente");
         
         
