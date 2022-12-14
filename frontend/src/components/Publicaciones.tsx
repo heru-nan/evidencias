@@ -73,6 +73,7 @@ function Publicacion() {
     window.location.reload();
 
     //por docker:docker ps id-- stop, rm, docker compose down --volumes
+    // <td>{archivos.autoresExtranjeros}</td>
   }
 
   const { onChange, onSubmit, values } = UseForm(
@@ -109,7 +110,8 @@ function Publicacion() {
       .then((res) => res.json())
       .then((resPub) => {
         setPublicaciones(resPub.data);
-        console.log(resPub.data);
+        console.log(publicaciones[10]);
+        console.log("uppp")
       });
   }, []);
 
@@ -185,6 +187,9 @@ function Publicacion() {
             <th>Disciplina</th>
 
             <th>issnDoi</th>
+
+            <th>Acciones</th>
+
           </tr>
         </thead>
 
@@ -197,8 +202,8 @@ function Publicacion() {
               <td>{archivos.revista}</td>
               <td>{archivos.indexacion}</td>
               <td>{archivos.anio}</td>
-
-              <td>{archivos.autoresExtranjeros}</td>
+              <td>{archivos.mes}</td>
+              <td>{String(archivos.autoresExtranjeros)}</td>
               <td>{archivos.clasificacion}</td>
               <td>{archivos.disciplina}</td>
               <td>{archivos.issnDoi}</td>
@@ -299,7 +304,7 @@ function Publicacion() {
                   <Label sm={2}>Mes</Label>
                     <Col sm={9}>
                     <Input
-                      id="exampleSelect"
+                      id="mes"
                       name="select"
                       type="select"
                       value={mes}

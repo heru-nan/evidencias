@@ -162,9 +162,10 @@ function RegPubli() {
       <Label sm={2}>Mes</Label>
         <Col sm={9}>
         <Input
-          id="exampleSelect"
+          id="Mes"
           name="select"
           type="select"
+          placeholder = "ingresar mes"
           onChange={onChange}
         >
           <option>
