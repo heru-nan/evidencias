@@ -16,12 +16,14 @@ function RegPubli() {
     indexacion: "",
     identificador: 0,
     anio: "",
+    mes: "",
     disciplina: "",
     clasificacion: "",
     autores_extranjeros: false,
   };
 
   function formularioCallback() {
+    console.log(values)
     fetch("http://localhost:5000/api/pubs", {
       method: "POST",
       headers: {
@@ -36,14 +38,12 @@ function RegPubli() {
         autoresExtranjeros: values.autores_extranjeros,
         issnDoi: values.identificador,
         anio: values.año,
+        mes: values.mes,
         clasificacion: values.clasificacion,
         disciplina: values.disciplina,
       }),
     })
       .then((res) => res.json)
-      .then((res) => console.log("kkkkkkk"))
-      .then((res) => console.log(res));
-
     alert("subido correctamente");
     //window.location.reload();
     //if de no refrescar si esta mal todo xd
@@ -154,6 +154,56 @@ function RegPubli() {
             onChange={onChange}
             required
           />
+        </Col>
+      </FormGroup>
+
+      <FormGroup row>
+
+      <Label sm={2}>Mes</Label>
+        <Col sm={9}>
+        <Input
+          id="exampleSelect"
+          name="select"
+          type="select"
+          onChange={onChange}
+        >
+          <option>
+            Enero
+          </option>
+          <option>
+            Febrero
+          </option>
+          <option>
+            Marzo
+          </option>
+          <option>
+            Abril
+          </option>
+          <option>
+            Mayo
+          </option>
+          <option>
+            Junio
+          </option>
+          <option>
+            Julio
+          </option>
+          <option>
+            Agosto
+          </option>
+          <option>
+            Septiembre
+          </option>
+          <option>
+            Octubre
+          </option>
+          <option>
+            Noviembre
+          </option>
+          <option>
+            Diciembre
+          </option>
+        </Input>
         </Col>
       </FormGroup>
 
