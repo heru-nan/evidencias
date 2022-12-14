@@ -2,6 +2,8 @@ import React,{useState,useEffect} from "react"
 import {Table,Button,Container,Modal,ModalBody,ModalHeader,FormGroup,ModalFooter,Form,Label,Col,Input} from "reactstrap"
 
 
+// <Button color = "danger" onClick={()=>handleShow(true,"eliminar",archivos)}  >eliminar</Button>
+
 type dataFiles = {
     id: number,
     nombre: string,
@@ -143,7 +145,7 @@ function Files(){
                                 <td>
                                     <Button color = "primary" onClick={()=>handleShow(true,"asociar",archivos)}>Asociar</Button>{"  "}
                                     <Button color = "primary">Descargar</Button>{"  "}
-                                    <Button color = "danger" onClick={()=>handleShow(true,"eliminar",archivos)}  >eliminar</Button>
+        
                                 </td>
                             </tr>
                         ))}

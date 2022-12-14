@@ -42,7 +42,7 @@ const UploadForm = () =>{
                         name = "nombre"
                         placeholder="Ingresar nombre del archivo"
                         required
-                        single
+                        
                         onChange = {onChange}
                     />
                 </Col>
@@ -55,6 +55,7 @@ const UploadForm = () =>{
                         id= "archivo"
                         name = "archivo"
                         type="file"
+                        single
                         onChange={(e) => setInputFiles(e.target.files)}
                         required
                     />
