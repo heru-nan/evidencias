@@ -2,11 +2,6 @@ import React, {useState} from "react"
 import {UseForm} from "./UseForm"
 import {Button,Form,FormGroup,Label,Input,Col,Alert} from "reactstrap"
 
-type archivo = {
-    nombre: string,
-    idPub: number,
-    archivo: File
-}
 
 
 const UploadForm = () =>{
@@ -14,20 +9,21 @@ const UploadForm = () =>{
     const initialState = {
         nombre: "",
         id_fk_pub: 0,
-        archivo: File
     }
 
     async function formularioCallback(){
         console.log(values)
-        alert("subido correctamente")
+        console.log(inputFiles)
+        //hacer fetch a values.nombre e input files
+        alert("subido correctamente");
+        
         
         // aqui va lo del mandar a backend y revisar que todo este bien??
     }
 
     const {onChange,onSubmit,values} = UseForm(formularioCallback,initialState)
 
-    //const [archivos,setArchivos] = React.useState<archivo[] | []>([])
-
+    const [inputFiles, setInputFiles] = React.useState(null)
 
 
     return(
@@ -46,6 +42,7 @@ const UploadForm = () =>{
                         name = "nombre"
                         placeholder="Ingresar nombre del archivo"
                         required
+                        single
                         onChange = {onChange}
                     />
                 </Col>
@@ -58,8 +55,7 @@ const UploadForm = () =>{
                         id= "archivo"
                         name = "archivo"
                         type="file"
-                        multiple
-                        onChange = {onChange}
+                        onChange={(e) => setInputFiles(e.target.files)}
                         required
                     />
                 </Col>
