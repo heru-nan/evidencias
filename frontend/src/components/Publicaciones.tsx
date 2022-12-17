@@ -74,6 +74,10 @@ function Publicacion() {
 
     //por docker:docker ps id-- stop, rm, docker compose down --volumes
     // <td>{archivos.autoresExtranjeros}</td>
+    // cambiar tipo de fecha a date en back
+    // ver lo del mes en el back
+    // conversar lo del el grupo de analisis 
+
   }
 
   const { onChange, onSubmit, values } = UseForm(
@@ -136,6 +140,7 @@ function Publicacion() {
   };
 
   const handleEdit = () => {
+
     fetch("http://localhost:5000/api/pubs/update", {
       method: "POST",
       body: JSON.stringify({
@@ -378,19 +383,27 @@ function Publicacion() {
                   </Col>
                 </FormGroup>
 
-                <FormGroup row>
-                  <Label sm={2}>Disciplina</Label>
-                  <Col sm={9}>
-                    <Input
-                      id="disciplina"
-                      name="disciplina"
-                      placeholder="Ingresar disciplina"
-                      value={disciplina}
-                      onChange={(e) => setDisciplina(e.target.value)}
-                      required
-                    />
-                  </Col>
-                </FormGroup>
+      <FormGroup row>
+      <Label sm={2}>Disciplina</Label>
+        <Col sm={9}>
+        <Input
+          id="disciplina"
+          name="disciplina"
+          type="select"
+          placeholder = "ingresar"
+          value={disciplina}
+          onChange={(e) => setDisciplina(e.target.value)}
+        >
+          <option>
+            Ingenieria
+          </option>
+          <option>
+            otras...
+          </option>
+  
+        </Input>
+        </Col>
+      </FormGroup>
 
                 <FormGroup row>
                   <Label sm={2}>Issn Doi</Label>

@@ -6,6 +6,19 @@ import { Button, Form, FormGroup, Label, Input, Col, Alert } from "reactstrap";
 por editar: poner fecha tipo dd/mm/yy en db y front
 arreglar subida de archivos
 decidir que onda con las subidas multiples
+
+<FormGroup row>
+        <Label sm={2}>Disciplina</Label>
+        <Col sm={9}>
+          <Input
+            id="disciplina"
+            name="disciplina"
+            placeholder="Ingresar disciplina"
+            onChange={onChange}
+            required
+          />
+        </Col>
+      </FormGroup>
  */
 
 function RegPubli() {
@@ -24,6 +37,10 @@ function RegPubli() {
 
   function formularioCallback() {
     console.log(values)
+
+    //const dt = new Date(values.año + "-" + values.mes + "-11");
+
+
     fetch("http://localhost:5000/api/pubs", {
       method: "POST",
       headers: {
@@ -162,62 +179,70 @@ function RegPubli() {
       <Label sm={2}>Mes</Label>
         <Col sm={9}>
         <Input
-          id="Mes"
-          name="select"
+          id="mes"
+          name="mes"
           type="select"
           placeholder = "ingresar mes"
           onChange={onChange}
         >
           <option>
-            Enero
+            1
           </option>
           <option>
-            Febrero
+            2
           </option>
           <option>
-            Marzo
+            3
           </option>
           <option>
-            Abril
+            4
           </option>
           <option>
-            Mayo
+            5
           </option>
           <option>
-            Junio
+            6
           </option>
           <option>
-            Julio
+            7
           </option>
           <option>
-            Agosto
+            8
           </option>
           <option>
-            Septiembre
+            9
           </option>
           <option>
-            Octubre
+            10
           </option>
           <option>
-            Noviembre
+            11
           </option>
           <option>
-            Diciembre
+            12
           </option>
         </Input>
         </Col>
       </FormGroup>
 
       <FormGroup row>
-        <Label sm={2}>Disciplina</Label>
+      <Label sm={2}>Disciplina</Label>
         <Col sm={9}>
-          <Input
-            id="disciplina"
-            name="disciplina"
-            placeholder="Ingresar disciplina"
-            onChange={onChange}
-            required
-          />
+        <Input
+          id="disciplina"
+          name="disciplina"
+          type="select"
+          placeholder = "ingresar"
+          onChange={onChange}
+        >
+          <option>
+            Ingenieria
+          </option>
+          <option>
+            otras...
+          </option>
+  
+        </Input>
         </Col>
       </FormGroup>
 
