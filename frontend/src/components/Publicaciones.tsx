@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { Form, Label, Input, Col } from "reactstrap";
 import axios from "axios";
+import EditPubModal from "./EditPubModal";
 
 interface Publication {
   id: number;
@@ -28,6 +29,7 @@ interface Publication {
 
 export default function Publicaciones() {
   const [publications, setPublications] = useState<Publication[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/pubs").then(({ data }) => {
@@ -37,58 +39,69 @@ export default function Publicaciones() {
   }, []);
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Autores</th>
-          <th>Titulo</th>
-          <th>Revisa</th>
-          <th>Indexación</th>
-          <th>Año</th>
-          <th>Autores Extranjeros</th>
-          <th>Clasificación</th>
-          <th>Disciplina</th>
-          <th>ISSN/DOI</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {publications.map(
-          ({
-            id,
-            titulo,
-            revista,
-            indexacion,
-            anio,
-            clasificacion,
-            disciplina,
-            autoresExtranjeros,
-            autores,
-            issnDoi,
-            validado,
-          }) => {
-            return (
-              <tr>
-                <th scope="row">{id}</th>
-                <td>{autores}</td>
-                <td>{titulo}</td>
-                <td>{revista}</td>
-                <td>{indexacion}</td>
-                <td>{anio}</td>
-                <td>{autoresExtranjeros ? "true" : "false"}</td>
-                <td>{clasificacion}</td>
-                <td>{disciplina}</td>
-                <td>{issnDoi}</td>
-                <td>
-                  <Button color="secondary">Editar</Button>
-                </td>
-              </tr>
-            );
-          }
-        )}
-      </tbody>
-    </Table>
+    <Container>
+      <Table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Autores</th>
+            <th>Titulo</th>
+            <th>Revisa</th>
+            <th>Indexación</th>
+            <th>Año</th>
+            <th>Autores Extranjeros</th>
+            <th>Clasificación</th>
+            <th>Disciplina</th>
+            <th>ISSN/DOI</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {publications.map(
+            ({
+              id,
+              titulo,
+              revista,
+              indexacion,
+              anio,
+              clasificacion,
+              disciplina,
+              autoresExtranjeros,
+              autores,
+              issnDoi,
+              validado,
+            }) => {
+              return (
+                <tr>
+                  <th scope="row">{id}</th>
+                  <td>{autores}</td>
+                  <td>{titulo}</td>
+                  <td>{revista}</td>
+                  <td>{indexacion}</td>
+                  <td>{anio}</td>
+                  <td>{autoresExtranjeros ? "true" : "false"}</td>
+                  <td>{clasificacion}</td>
+                  <td>{disciplina}</td>
+                  <td>{issnDoi}</td>
+                  <td>
+                    <Button
+                      color="secondary"
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      Editar
+                    </Button>
+                  </td>
+                </tr>
+              );
+            }
+          )}
+        </tbody>
+      </Table>
+      <EditPubModal
+        isOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+      />
+    </Container>
   );
 }
 

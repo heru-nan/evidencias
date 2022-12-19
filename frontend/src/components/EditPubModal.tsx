@@ -12,9 +12,19 @@ import {
   Input,
   Col,
 } from "reactstrap";
+import { useForm } from "react-hook-form";
 
-export default function EditPubModal({ isOpen }) {
-  const onSubmit = () => {};
+export default function EditPubModal({ isOpen, closeModal }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  console.log(errors);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <Modal isOpen={isOpen}>
@@ -25,17 +35,16 @@ export default function EditPubModal({ isOpen }) {
       </ModalHeader>
 
       <ModalBody>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup row>
             <Label sm={2}>autores</Label>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 id="autores"
                 name="autores"
                 placeholder="Ingresar Autores"
-                value={autores}
-                onChange={(e) => setAutores(e.target.value)}
-                required
+                {...register("autores", { required: true })}
               />
             </Col>
           </FormGroup>
@@ -43,13 +52,11 @@ export default function EditPubModal({ isOpen }) {
           <FormGroup row>
             <Label sm={2}>titulo</Label>
             <Col sm={9}>
-              <Input
-                id="titulo"
+              <input
+                className="form-control"
                 name="titulo"
                 placeholder="Ingresar titulo"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
-                required
+                {...register("titulo", { required: true })}
               />
             </Col>
           </FormGroup>
@@ -57,13 +64,11 @@ export default function EditPubModal({ isOpen }) {
           <FormGroup row>
             <Label sm={2}>Revista</Label>
             <Col sm={9}>
-              <Input
-                id="revista"
+              <input
+                className="form-control"
                 name="revista"
                 placeholder="Ingresar revista"
-                value={revista}
-                onChange={(e) => setRevista(e.target.value)}
-                required
+                {...register("revista", { required: true })}
               />
             </Col>
           </FormGroup>
@@ -71,13 +76,12 @@ export default function EditPubModal({ isOpen }) {
           <FormGroup row>
             <Label sm={2}>Indexación</Label>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 id="index"
                 name="index"
                 placeholder="Ingresar indexación"
-                value={indexacion}
-                onChange={(e) => setIndexacion(e.target.value)}
-                required
+                {...register("indexacion", { required: true })}
               />
             </Col>
           </FormGroup>
@@ -85,51 +89,24 @@ export default function EditPubModal({ isOpen }) {
           <FormGroup row>
             <Label sm={2}>Año</Label>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 id="año"
                 name="año"
                 placeholder="Ingresar año"
-                value={anio}
-                onChange={(e) => setAnio(e.target.value)}
-                required
+                {...register("anio", { required: true })}
               />
-            </Col>
-          </FormGroup>
-
-          <FormGroup row>
-            <Label sm={2}>Mes</Label>
-            <Col sm={9}>
-              <Input
-                id="mes"
-                name="select"
-                type="select"
-                value={mes}
-                onChange={(e) => setMes(e.target.value)}
-              >
-                <option>Enero</option>
-                <option>Febrero</option>
-                <option>Marzo</option>
-                <option>Abril</option>
-                <option>Mayo</option>
-                <option>Junio</option>
-                <option>Julio</option>
-                <option>Agosto</option>
-                <option>Septiembre</option>
-                <option>Octubre</option>
-                <option>Noviembre</option>
-                <option>Diciembre</option>
-              </Input>
             </Col>
           </FormGroup>
 
           <FormGroup check inline>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 type="checkbox"
                 id="autoresEx"
                 name="autoresEx"
-                value={autores_extranjeros}
-                onChange={(e) => setAutores_extranjeros(e.target.value)}
+                {...register("autoresExtranjeros", { required: true })}
               />
             </Col>
             <Label check>¿Hay autores extranjeros?</Label>
@@ -138,44 +115,42 @@ export default function EditPubModal({ isOpen }) {
           <FormGroup row>
             <Label sm={2}>clasificacion</Label>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 id="clasificacion"
                 name="clasificacion"
                 placeholder="Ingresar clasificacion"
-                value={clasificacion}
-                onChange={(e) => setClasificacion(e.target.value)}
-                required
+                {...register("clasificacion", { required: true })}
               />
             </Col>
           </FormGroup>
 
-          <FormGroup row>
+          {/* <FormGroup row>
             <Label sm={2}>Disciplina</Label>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 id="disciplina"
                 name="disciplina"
                 type="select"
                 placeholder="ingresar"
-                value={disciplina}
-                onChange={(e) => setDisciplina(e.target.value)}
+                {...register("disciplina", { required: false })}
               >
                 <option>Ingenieria</option>
                 <option>otras...</option>
-              </Input>
+              </input>
             </Col>
-          </FormGroup>
+          </FormGroup> */}
 
           <FormGroup row>
             <Label sm={2}>Issn Doi</Label>
             <Col sm={9}>
-              <Input
+              <input
+                className="form-control"
                 id="issn_doi"
-                name="issn_doi"
+                name="issnDoi"
                 placeholder="Ingresar issn_doi"
-                value={issn_doi}
-                onChange={(e) => setIssn_doi(e.target.value)}
-                required
+                {...register("issnDoi", { required: true })}
               />
             </Col>
           </FormGroup>
@@ -187,11 +162,8 @@ export default function EditPubModal({ isOpen }) {
       </ModalBody>
 
       <ModalFooter>
-        <Button
-          color="danger"
-          onClick={() => handleShow(false, "editar", 0, initialState)}
-        >
-          cancelar
+        <Button color="danger" onClick={closeModal}>
+          Cancelar
         </Button>
       </ModalFooter>
     </Modal>
