@@ -47,16 +47,16 @@ const Publication = sequelize.define(
       type: DataTypes.STRING,
     },
     anio: {
-      type: DataTypes.STRING,
-    },
-    citaciones: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
     },
     clasificacion: {
       type: DataTypes.STRING,
     },
     disciplina: {
       type: DataTypes.STRING,
+    },
+    validado: {
+      type: DataTypes.BOOLEAN,
     },
   },
   {

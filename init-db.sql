@@ -34,9 +34,9 @@ create table publicacion(
     autores varchar(100),
     revista varchar(100),
     autores_extranjeros TINYINT(1),
+    validado TINYINT(1),
     indexacion varchar(100), 
-    anio varchar(100),
-    citaciones varchar(300),
+    anio date,
     clasificacion varchar(100),
     disciplina varchar(100)
 );
