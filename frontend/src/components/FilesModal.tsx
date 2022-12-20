@@ -16,18 +16,15 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
 
     if (id) {
       axios.get(`http://localhost:5000/api/pubs/${id}`).then(({ data }) => {
-        console.log(data);
-        if (data) setFiles(data.files);
+        if (data) {
+          setFiles(data.data.files);
+        }
       });
     }
   }, [publication]);
 
   const downloadFile = (id: string) => {
-    axios
-      .get(`http://localhost:5000/api/files/download/${id}`)
-      .then(({ data }) => {
-        console.log(data);
-      });
+    axios.get(`http://localhost:5000/api/files/download/${id}`);
   };
 
   return (
@@ -56,12 +53,13 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
                 <td>{archivo.id}</td>
                 <td>{archivo.nombre}</td>
                 <td>
-                  <Button
-                    color="primary"
-                    onClick={() => downloadFile(archivo.id)}
+                  <a
+                    target="_blank"
+                    href={`http://localhost:5000/api/files/download/${archivo.id}`}
+                    rel="noreferrer"
                   >
                     Descargar
-                  </Button>
+                  </a>
                 </td>
               </tr>
             ))}
