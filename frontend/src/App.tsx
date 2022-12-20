@@ -1,11 +1,8 @@
-import React from "react";
 import "./App.css";
 import Files from "./components/Files";
 import Head from "./components/Head";
 import ListEvi from "./components/ListEvi";
 import Publicaciones from "./components/Publicaciones";
-import Publicacion from "./components/Publicaciones";
-import RegProyect from "./components/RegProyect";
 import RegPubli from "./components/RegPubli";
 import UploadForm from "./components/UploadForm";
 
@@ -41,16 +38,6 @@ function App() {
           <Head />
 
           <RegPubli />
-        </div>
-      );
-      break;
-
-    case "rutaRegProyect":
-      return (
-        <div className="App">
-          <Head />
-
-          <RegProyect />
         </div>
       );
       break;

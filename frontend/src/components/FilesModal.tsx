@@ -24,10 +24,6 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
     }
   }, [publication]);
 
-  const downloadFile = (id: string) => {
-    axios.get(`http://localhost:5000/api/files/download/${id}`);
-  };
-
   return (
     <Modal isOpen={isOpen}>
       <ModalHeader>
