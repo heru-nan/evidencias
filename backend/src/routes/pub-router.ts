@@ -1,5 +1,6 @@
 import express from "express";
 import Publication from "../Models/Publication";
+import File from "../Models/File";
 
 const router: express.Router = express.Router();
 
@@ -82,6 +83,25 @@ router.post("/pubs/update", async (req, res) => {
     });
   } catch (error) {
     res.json({ data: "Error al actualizar", error });
+  }
+});
+
+router.get("/pubs/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const publication = await Publication.findOne({ where: { id } });
+
+    const files = await File.findAll({ where: { idPkPub: id } });
+
+    res.json({
+      data: { ...publication, files },
+      error: false,
+    });
+  } catch (error) {
+    res.json({
+      data: error,
+      error: true,
+    });
   }
 });
 

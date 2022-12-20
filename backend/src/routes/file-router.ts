@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import File from "../Models/File";
+import Publication from "../Models/Publication";
 
 // INIT MIDDLEWARE
 const storage = multer.diskStorage({
@@ -53,7 +54,16 @@ router.post("/files/:id", async (req, res) => {
   const { id } = req.params;
   const { pubId } = req.body;
 
-  res.json({ data: {}, error: false });
+  const file = await File.findOne({ where: { id } });
+
+  if (file) {
+    const newFile = { ...file, idFkPub: pubId };
+    await File.update(newFile, { where: { id } });
+
+    res.json({ data: newFile, error: false });
+  } else {
+    res.json({ data: {}, error: true });
+  }
 });
 
 export default router;

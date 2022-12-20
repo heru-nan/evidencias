@@ -15,9 +15,9 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
     const { id } = publication;
 
     if (id) {
-      axios.get(`http://localhost:5000/api/files/${id}`).then(({ data }) => {
+      axios.get(`http://localhost:5000/api/pubs/${id}`).then(({ data }) => {
         console.log(data);
-        if (data) setFiles(data);
+        if (data) setFiles(data.files);
       });
     }
   }, [publication]);
