@@ -21,7 +21,6 @@ const router = express.Router();
 
 router.get("/files", async (req, res) => {
   const files = await File.findAll();
-  console.log(files);
   res.json({ data: files, error: false });
 });
 

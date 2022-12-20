@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import fileDownload from "js-file-download";
 
 export default function FilesModal({ isOpen, closeModal, publication }) {
   const [files, setFiles] = useState([]);
@@ -53,13 +54,21 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
                 <td>{archivo.id}</td>
                 <td>{archivo.nombre}</td>
                 <td>
-                  <a
-                    target="_blank"
-                    href={`http://localhost:5000/api/files/download/${archivo.id}`}
-                    rel="noreferrer"
+                  <Button
+                    style={{ marginRight: "10px" }}
+                    color="primary"
+                    onClick={() => {
+                      axios({
+                        url: `http://localhost:5000/api/files/download/${archivo.id}`,
+                        method: "GET",
+                        responseType: "blob",
+                      }).then((response) => {
+                        fileDownload(response.data, archivo.nombre);
+                      });
+                    }}
                   >
                     Descargar
-                  </a>
+                  </Button>
                 </td>
               </tr>
             ))}
