@@ -28,7 +28,6 @@ const UploadForm = () => {
           headers: { "Content-type": "multipart/form-data" },
         })
         .then(({ data }) => {
-          console.log(data);
           if (!data.error)
             Swal.fire({
               title: "Archivo subido correctamente",
@@ -80,7 +79,6 @@ const UploadForm = () => {
               id="archivo"
               name="archivo"
               type="file"
-              single
               onChange={(e) => setInputFiles(e.target.files[0])}
               required
             />
