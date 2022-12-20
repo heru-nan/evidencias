@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Button,
-  Container,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  FormGroup,
-  ModalFooter,
-} from "reactstrap";
-import { Form, Label, Input, Col } from "reactstrap";
+import { Table, Button, Container } from "reactstrap";
 import axios from "axios";
 import EditPubModal from "./EditPubModal";
+import FilesModal from "./FilesModal";
 
 interface Publication {
   id: number;
@@ -30,6 +21,7 @@ interface Publication {
 export default function Publicaciones() {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFileModalOpen, setIsFileModalOpen] = useState(false);
   const [currentPublication, setCurrentPublication] = useState<
     Publication | {}
   >({});
@@ -51,9 +43,19 @@ export default function Publicaciones() {
     setCurrentPublication({});
   };
 
+  const showFiles = (pub: Publication) => {
+    setIsFileModalOpen(true);
+    setCurrentPublication(pub);
+  };
+
+  const hideFiles = () => {
+    setIsFileModalOpen(false);
+    setCurrentPublication({});
+  };
+
   return (
     <Container>
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
             <th>ID</th>
@@ -96,9 +98,10 @@ export default function Publicaciones() {
                   <td>{clasificacion}</td>
                   <td>{disciplina}</td>
                   <td>{issnDoi}</td>
-                  <td>
+                  <td style={{ display: "flex" }}>
                     <Button
                       color="secondary"
+                      style={{ marginRight: "10px" }}
                       onClick={() =>
                         openModal({
                           id,
@@ -117,6 +120,26 @@ export default function Publicaciones() {
                     >
                       Editar
                     </Button>
+                    <Button
+                      color="info"
+                      onClick={() =>
+                        showFiles({
+                          id,
+                          titulo,
+                          revista,
+                          indexacion,
+                          anio,
+                          clasificacion,
+                          disciplina,
+                          autoresExtranjeros,
+                          autores,
+                          issnDoi,
+                          validado,
+                        })
+                      }
+                    >
+                      Archivos
+                    </Button>
                   </td>
                 </tr>
               );
@@ -128,6 +151,11 @@ export default function Publicaciones() {
         isOpen={isModalOpen}
         closeModal={closeModal}
         defaultValues={currentPublication}
+      />
+      <FilesModal
+        isOpen={isFileModalOpen}
+        closeModal={hideFiles}
+        publication={currentPublication}
       />
     </Container>
   );

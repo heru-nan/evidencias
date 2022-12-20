@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Col, Container } from "reactstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";

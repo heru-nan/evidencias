@@ -161,96 +161,92 @@ function Files() {
               </td>
             </tr>
           ))}
-
-          <Modal isOpen={showAsoc}>
-            <ModalHeader>
-              <div>
-                <h3>Asociar</h3>
-              </div>
-            </ModalHeader>
-
-            <ModalBody>
-              <Form>
-                <FormGroup row>
-                  <Label sm={2}>Id</Label>
-                  <Col sm={9}>
-                    <Input
-                      id="id"
-                      name="id"
-                      type="number"
-                      value={id}
-                      autoComplete="off"
-                    />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup row>
-                  <Label sm={2}>Nombre</Label>
-                  <Col sm={9}>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={name}
-                      required
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup row>
-                  <Label sm={2}>Id Publicacion</Label>
-                  <Col sm={9}>
-                    <Input
-                      type="number"
-                      id="idPub"
-                      name="idPub"
-                      value={idPub}
-                      required
-                      onChange={(e) => setIdPub(e.target.valueAsNumber)}
-                    />
-                  </Col>
-                </FormGroup>
-              </Form>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button
-                color="primary"
-                onClick={() => handleShow(false, "save", [])}
-              >
-                Guardar
-              </Button>
-              <Button
-                color="danger"
-                onClick={() => handleShow(false, "asociar", [])}
-              >
-                cancelar
-              </Button>
-            </ModalFooter>
-          </Modal>
-
-          <Modal isOpen={showDelete}>
-            <ModalHeader>
-              <div>
-                <h3>Borrar</h3>
-              </div>
-            </ModalHeader>
-
-            <ModalBody>
-              <Button color="danger">borrar!</Button>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button
-                color="danger"
-                onClick={() => handleShow(false, "eliminar", [])}
-              >
-                Cancelar
-              </Button>
-            </ModalFooter>
-          </Modal>
         </tbody>
       </Table>
+      <Modal isOpen={showAsoc}>
+        <ModalHeader>
+          <div>
+            <h3>Asociar</h3>
+          </div>
+        </ModalHeader>
+
+        <ModalBody>
+          <Form>
+            <FormGroup row>
+              <Label sm={2}>Id</Label>
+              <Col sm={9}>
+                <Input
+                  id="id"
+                  name="id"
+                  type="number"
+                  value={id}
+                  autoComplete="off"
+                />
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Label sm={2}>Nombre</Label>
+              <Col sm={9}>
+                <Input
+                  id="name"
+                  name="name"
+                  value={name}
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Label sm={2}>Id Publicacion</Label>
+              <Col sm={9}>
+                <Input
+                  type="number"
+                  id="idPub"
+                  name="idPub"
+                  value={idPub}
+                  required
+                  onChange={(e) => setIdPub(e.target.valueAsNumber)}
+                />
+              </Col>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button color="primary" onClick={() => handleShow(false, "save", [])}>
+            Guardar
+          </Button>
+          <Button
+            color="danger"
+            onClick={() => handleShow(false, "asociar", [])}
+          >
+            cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen={showDelete}>
+        <ModalHeader>
+          <div>
+            <h3>Borrar</h3>
+          </div>
+        </ModalHeader>
+
+        <ModalBody>
+          <Button color="danger">borrar!</Button>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button
+            color="danger"
+            onClick={() => handleShow(false, "eliminar", [])}
+          >
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
     </Container>
   );
 }
