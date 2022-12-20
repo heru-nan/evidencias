@@ -26,20 +26,14 @@ router.get("/files", async (req, res) => {
 router.post("/files", upload.single("file"), async (req, res) => {
   const resFile = req.file;
 
-  console.log(resFile);
-
-  if (!resFile)
-    res.json({
-      data: "Error al agregar un archivo",
-      error: "No existe un archivo",
-    });
-
   const file = File.build({
     nombre: resFile?.originalname,
     ruta: resFile?.path,
   });
 
   try {
+    if (!resFile) throw new Error("No existe archivo");
+
     await file.save();
     res.json({
       data: "Archivo guardado correctamente",
@@ -53,13 +47,5 @@ router.post("/files", upload.single("file"), async (req, res) => {
     });
   }
 });
-
-// router.get("/items", ItemController.getItems);
-// router.post("/items/link", ItemController.linkItemWithFile);
-// // router.get("/item/:id", ItemController.getItemById);
-// router.post("/item", upload.single("file"), ItemController.createItem);
-// router.post("/item/link", ItemController.linkItemWithFile);
-// // router.put("/item/:id", ItemController.updateItem);
-// // router.delete("/item/:id", ItemController.deleteItem);
 
 export default router;
