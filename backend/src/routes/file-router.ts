@@ -20,6 +20,7 @@ const router = express.Router();
 
 router.get("/files", async (req, res) => {
   const files = await File.findAll();
+  console.log(files);
   res.json({ data: files, error: false });
 });
 
@@ -46,6 +47,13 @@ router.post("/files", upload.single("file"), async (req, res) => {
       error,
     });
   }
+});
+
+router.post("/files/:id", async (req, res) => {
+  const { id } = req.params;
+  const { pubId } = req.body;
+
+  res.json({ data: {}, error: false });
 });
 
 export default router;
