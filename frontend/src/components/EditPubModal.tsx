@@ -1,7 +1,5 @@
 import {
-  Table,
   Button,
-  Container,
   Modal,
   ModalBody,
   ModalHeader,
@@ -9,7 +7,6 @@ import {
   ModalFooter,
   Form,
   Label,
-  Input,
   Col,
 } from "reactstrap";
 import { useForm } from "react-hook-form";
@@ -53,7 +50,7 @@ export default function EditPubModal({ isOpen, closeModal, defaultValues }) {
                 id="autores"
                 name="autores"
                 placeholder="Ingresar Autores"
-                {...register("autores", { required: true })}
+                {...register("autores")}
               />
             </Col>
           </FormGroup>
@@ -164,7 +161,13 @@ export default function EditPubModal({ isOpen, closeModal, defaultValues }) {
             </Col>
           </FormGroup>
 
-          <Button type="submit" color="primary">
+          {Object.keys(errors).length !== 0 && (
+            <div className="alert alert-danger" role="alert">
+              Faltan campos que rellenar
+            </div>
+          )}
+
+          <Button type="submit" color="primary" className="w-25 mt-2">
             Registrar
           </Button>
         </Form>
