@@ -30,13 +30,26 @@ interface Publication {
 export default function Publicaciones() {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPublication, setCurrentPublication] = useState<
+    Publication | {}
+  >({});
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/pubs").then(({ data }) => {
       console.log(data.data);
       setPublications(data.data);
     });
-  }, []);
+  }, [currentPublication]);
+
+  const openModal = (pub: Publication) => {
+    setCurrentPublication(pub);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentPublication({});
+  };
 
   return (
     <Container>
@@ -86,7 +99,21 @@ export default function Publicaciones() {
                   <td>
                     <Button
                       color="secondary"
-                      onClick={() => setIsModalOpen(true)}
+                      onClick={() =>
+                        openModal({
+                          id,
+                          titulo,
+                          revista,
+                          indexacion,
+                          anio,
+                          clasificacion,
+                          disciplina,
+                          autoresExtranjeros,
+                          autores,
+                          issnDoi,
+                          validado,
+                        })
+                      }
                     >
                       Editar
                     </Button>
@@ -99,7 +126,8 @@ export default function Publicaciones() {
       </Table>
       <EditPubModal
         isOpen={isModalOpen}
-        closeModal={() => setIsModalOpen(false)}
+        closeModal={closeModal}
+        defaultValues={currentPublication}
       />
     </Container>
   );

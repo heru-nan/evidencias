@@ -17,12 +17,6 @@ const ListEvi = () => {
           Publicaciones
         </NavLink>
       </NavItem>
-
-      <NavItem>
-        <NavLink id="c" href="proyectos">
-          Proyectos
-        </NavLink>
-      </NavItem>
     </Nav>
   );
 };
