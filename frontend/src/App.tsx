@@ -1,132 +1,94 @@
-import React from 'react';
-import './App.css';
-import Files from './components/Files';
-import Head from './components/Head';
-import ListEvi from './components/ListEvi';
-import Proyectos from './components/Proyectos';
-import Publicaciones from './components/Publicaciones';
-import Publicacion from './components/Publicaciones';
-import RegProyect from './components/RegProyect';
-import RegPubli from './components/RegPubli';
-import UploadForm from './components/UploadForm';
-
+import React from "react";
+import "./App.css";
+import Files from "./components/Files";
+import Head from "./components/Head";
+import ListEvi from "./components/ListEvi";
+import Publicaciones from "./components/Publicaciones";
+import Publicacion from "./components/Publicaciones";
+import RegProyect from "./components/RegProyect";
+import RegPubli from "./components/RegPubli";
+import UploadForm from "./components/UploadForm";
 
 function App() {
-  const currentPage = window.location.href.split("/")[3]
-  console.log(currentPage)
+  const currentPage = window.location.href.split("/")[3];
+  console.log(currentPage);
 
-  switch (currentPage){
+  switch (currentPage) {
     case "rutaEvi":
       return (
         <div className="App">
-    
           <Head />
-          
-          <ListEvi/>
-          <Files/>
 
-    
+          <ListEvi />
+          <Files />
         </div>
       );
-      break
+      break;
 
     case "RutaUp":
       return (
         <div className="App">
-    
           <Head />
-          
-          <UploadForm/>
-    
+
+          <UploadForm />
         </div>
       );
-      break
+      break;
 
     case "rutaRegPubli":
       return (
         <div className="App">
-    
           <Head />
-          
-          <RegPubli/>
-    
+
+          <RegPubli />
         </div>
       );
-      break
+      break;
 
     case "rutaRegProyect":
       return (
         <div className="App">
-    
           <Head />
-          
-          <RegProyect/>
+
+          <RegProyect />
         </div>
       );
-      break
+      break;
 
-      case "archivos":
-        return (
-          <div className="App">
-      
-            <Head />
-            
-            <ListEvi/>
-            
-            <Files/>
-            
-          </div>
-        );
-        break
+    case "archivos":
+      return (
+        <div className="App">
+          <Head />
 
-      case "publicaciones":
-        return (
-          <div className="App">
-      
-            <Head />
-            
-            <ListEvi/>
-            
-            <Publicaciones/>
-          </div>
-        );
-        break
+          <ListEvi />
 
-        case "proyectos":
-          return (
-            <div className="App">
-        
-              <Head />
-              
-              <ListEvi/>
-              <Proyectos/>
-            </div>
-          );
-          break
+          <Files />
+        </div>
+      );
+      break;
 
+    case "publicaciones":
+      return (
+        <div className="App">
+          <Head />
 
-    
+          <ListEvi />
+
+          <Publicaciones />
+        </div>
+      );
+      break;
+
     default:
       return (
         <div className="App">
-    
           <Head />
-          <ListEvi/>
-          
-          <Files/>
-    
+          <ListEvi />
+
+          <Files />
         </div>
       );
-      
-
   }
-
-
-
-
-
-  
 }
-
 
 export default App;

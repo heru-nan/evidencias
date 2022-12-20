@@ -44,14 +44,14 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
             <tr>
               <th>ID</th>
 
-              <th>nombre</th>
+              <th>Nombre</th>
 
-              <th>acciones</th>
+              <th>Acciones</th>
             </tr>
           </thead>
 
           <tbody>
-            {files.map((archivo) => (
+            {files?.map((archivo) => (
               <tr>
                 <td>{archivo.id}</td>
                 <td>{archivo.nombre}</td>

@@ -91,10 +91,10 @@ router.get("/pubs/:id", async (req, res) => {
     const { id } = req.params;
     const publication = await Publication.findOne({ where: { id } });
 
-    const files = await File.findAll({ where: { idPkPub: id } });
-
+    const files = await File.findAll({ where: { idFkPub: id } });
+    console.log(files);
     res.json({
-      data: { ...publication, files },
+      data: { publication, files },
       error: false,
     });
   } catch (error) {
