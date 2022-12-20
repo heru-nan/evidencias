@@ -28,6 +28,7 @@ const File = sequelize.define(
     },
     ruta: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

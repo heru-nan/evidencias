@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import File from "../Models/File";
-import Publication from "../Models/Publication";
+import fs from "fs";
 
 // INIT MIDDLEWARE
 const storage = multer.diskStorage({
@@ -63,6 +63,26 @@ router.post("/files/:id", async (req, res) => {
     res.json({ data: newFile, error: false });
   } else {
     res.json({ data: {}, error: true });
+  }
+});
+
+router.get("/files/download/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const file = (await File.findOne({ where: { id } })) as unknown as {
+      ruta: string;
+      nombre: string;
+    };
+
+    const buildFile = fs.createReadStream(file.ruta);
+    const filename = file?.nombre || new Date().toISOString();
+    res.setHeader(
+      "Content-Disposition",
+      'attachment: filename="' + filename + '"'
+    );
+    buildFile.pipe(res);
+  } catch (error) {
+    res.json({ error: true, data: error });
   }
 });
 

@@ -22,6 +22,14 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
     }
   }, [publication]);
 
+  const downloadFile = (id: string) => {
+    axios
+      .get(`http://localhost:5000/api/files/download/${id}`)
+      .then(({ data }) => {
+        console.log(data);
+      });
+  };
+
   return (
     <Modal isOpen={isOpen}>
       <ModalHeader>
@@ -43,12 +51,17 @@ export default function FilesModal({ isOpen, closeModal, publication }) {
           </thead>
 
           <tbody>
-            {files.map((archivos) => (
+            {files.map((archivo) => (
               <tr>
-                <td>{archivos.id}</td>
-                <td>{archivos.nombre}</td>
+                <td>{archivo.id}</td>
+                <td>{archivo.nombre}</td>
                 <td>
-                  <Button color="primary">Descargar</Button>
+                  <Button
+                    color="primary"
+                    onClick={() => downloadFile(archivo.id)}
+                  >
+                    Descargar
+                  </Button>
                 </td>
               </tr>
             ))}
