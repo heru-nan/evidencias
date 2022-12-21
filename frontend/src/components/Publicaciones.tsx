@@ -63,7 +63,7 @@ export default function Publicaciones() {
             <th>Titulo</th>
             <th>Revisa</th>
             <th>Indexación</th>
-            <th>Año</th>
+            <th>Fecha publicacion</th>
             <th>Autores Extranjeros</th>
             <th>Clasificación</th>
             <th>Disciplina</th>
@@ -94,7 +94,7 @@ export default function Publicaciones() {
                   <td>{revista}</td>
                   <td>{indexacion}</td>
                   <td>{anio}</td>
-                  <td>{autoresExtranjeros ? "true" : "false"}</td>
+                  <td>{autoresExtranjeros ? "si" : "no"}</td>
                   <td>{clasificacion}</td>
                   <td>{disciplina}</td>
                   <td>{issnDoi}</td>

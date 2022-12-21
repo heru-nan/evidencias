@@ -86,12 +86,13 @@ export default function RegisterPublication() {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={3}>Año</Label>
+          <Label sm={3}>Fecha de publicacion</Label>
           <Col sm={8}>
             <input
               className="form-control"
               id="año"
               name="año"
+              type="date"
               placeholder="Ingresar año"
               {...register("anio", { required: true })}
             />

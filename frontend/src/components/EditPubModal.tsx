@@ -118,6 +118,7 @@ export default function EditPubModal({ isOpen, closeModal, defaultValues }) {
                 className="form-control"
                 id="año"
                 name="año"
+                type="date"
                 placeholder="Ingresar año"
                 {...register("anio", { required: true })}
               />
