@@ -12,25 +12,44 @@ import {
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { log } from "console";
 
 export default function EditPubModal({ isOpen, closeModal, defaultValues }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
+    setValue,
   } = useForm({ values: defaultValues });
   console.log(errors);
 
+  const url = "http://localhost:5000/api/pubs/update"
   const onSubmit = (data) => {
-    axios.post("http://localhost:5000/api/pubs/update", data).then((data) => {
+    axios.post(url, data).then((data) => {
       Swal.fire({
         title: "Cambios Registrados",
         icon: "success",
         showConfirmButton: false,
         timer: 1500,
-      }).then(() => closeModal());
+      })//.then(() => closeModal());
     });
   };
+
+  const setVariables = () => {
+    setValue('validado',1)
+    const {disciplina, autoresExtranjeros, validado} = getValues();
+    // post indicadores... 
+    /*
+     axios.post(url, {
+      disciplina,
+      autoresExtranjeros,
+      validado,
+     }.then((res) => (console.log("Indicadores Insertados"))) )
+    */
+    // Validar publicación
+    axios.post(url, getValues()).then( () => closeModal())
+  }
 
   return (
     <Modal isOpen={isOpen}>
@@ -113,7 +132,7 @@ export default function EditPubModal({ isOpen, closeModal, defaultValues }) {
                 type="checkbox"
                 id="autoresExtranjeros"
                 name="autoresExtranjeros"
-                {...register("autoresExtranjeros", { required: true })}
+                {...register("autoresExtranjeros", { required: false })}
               />
             </Col>
             <Label check>¿Hay autores extranjeros?</Label>
@@ -168,14 +187,18 @@ export default function EditPubModal({ isOpen, closeModal, defaultValues }) {
           )}
 
           <Button type="submit" color="primary" className="w-25 mt-2">
-            Registrar
+            Guardar
           </Button>
+
         </Form>
       </ModalBody>
 
-      <ModalFooter>
+      <ModalFooter style={{display:"flex", justifyContent:"space-between"}}>
+        <Button type="submit" color="success" className="w-30" onClick={ setVariables }>
+            Confirmar Evidencia
+        </Button>
         <Button color="danger" onClick={closeModal}>
-          Cancelar
+          Cerrar
         </Button>
       </ModalFooter>
     </Modal>

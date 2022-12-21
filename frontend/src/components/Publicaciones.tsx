@@ -87,7 +87,7 @@ export default function Publicaciones() {
               validado,
             }) => {
               return (
-                <tr>
+                <tr key={id}>
                   <th scope="row">{id}</th>
                   <td>{autores}</td>
                   <td>{titulo}</td>
@@ -98,9 +98,12 @@ export default function Publicaciones() {
                   <td>{clasificacion}</td>
                   <td>{disciplina}</td>
                   <td>{issnDoi}</td>
-                  <td style={{ display: "flex" }}>
+
+                  <td style={{ display: "flex", justifyContent:"space-between" }}>
+                    { validado === null? 
+                    (
                     <Button
-                      color="secondary"
+                      color="success"
                       style={{ marginRight: "10px" }}
                       onClick={() =>
                         openModal({
@@ -118,8 +121,9 @@ export default function Publicaciones() {
                         })
                       }
                     >
-                      Editar
-                    </Button>
+                      Validar
+                    </Button>)
+                    : <Button disabled className="me-2">Validado</Button>} 
                     <Button
                       color="info"
                       onClick={() =>
