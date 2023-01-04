@@ -1,5 +1,5 @@
 import React from "react";
-import Publicaciones from "./Publicaciones";
+import Publicaciones from "../src/components/Publicaciones";
 
 describe("<Publicaciones />", () => {
   it("renders", () => {
